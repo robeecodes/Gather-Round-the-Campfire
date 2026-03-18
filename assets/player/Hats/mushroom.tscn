@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bowg0icq12vlr"]
+
+[ext_resource type="PackedScene" uid="uid://c5c00y7wdgfb" path="res://assets/player/Hats/Mushroom.glb" id="1_t4b4g"]
+
+[node name="Mushroom" unique_id=557186744 instance=ExtResource("1_t4b4g")]
+
+[node name="mushroom_Circle_006" parent="." index="0" unique_id=362791260]
+transform = Transform3D(0.045, 0, 0, 0, 0.045, 0, 0, 0, 0.045, 0, -0.305, 0)

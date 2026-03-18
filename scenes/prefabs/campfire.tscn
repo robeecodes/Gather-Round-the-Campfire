@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://cmkdv8v0gu5mc"]
+
+[ext_resource type="Script" uid="uid://cr81oc4a3be2h" path="res://scenes/prefabs/campfire.gd" id="1_bcnt7"]
+[ext_resource type="PackedScene" uid="uid://biue1jtyguk5g" path="res://assets/environment/kenney_nature-kit/Models/GLTF format/tree_small_fall.glb" id="2_4wpew"]
+[ext_resource type="PackedScene" uid="uid://cyofbwcwa72d6" path="res://assets/environment/kenney_nature-kit/Models/GLTF format/pot_large.glb" id="2_ulp66"]
+[ext_resource type="PackedScene" uid="uid://dlff4w1xli64f" path="res://assets/environment/kenney_nature-kit/Models/GLTF format/campfire_logs.glb" id="3_4wpew"]
+[ext_resource type="PackedScene" uid="uid://bw11jnkygj800" path="res://scenes/interactable.tscn" id="4_l5cdx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p3rq1"]
+size = Vector3(0.5635964, 0.2, 0.48808885)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_j2xvu"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ulp66"]
+properties/0/path = NodePath("fire:visible")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Campfire" type="Node3D" unique_id=1408762326]
+script = ExtResource("1_bcnt7")
+
+[node name="fire" parent="." unique_id=1579033756 instance=ExtResource("2_4wpew")]
+transform = Transform3D(0.825, 0, 0, 0, 0.24, 0, 0, 0, 0.825, 0, 0.15287292, 0)
+visible = false
+
+[node name="pot_large2" parent="." unique_id=1895774153 instance=ExtResource("2_ulp66")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="pot_large2/pot_large" parent_id_path=PackedInt32Array(1895774153, 1823733800) index="0" unique_id=196839403]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pot_large2/pot_large/StaticBody3D" unique_id=847940557]
+shape = SubResource("BoxShape3D_p3rq1")
+
+[node name="campfire_logs2" parent="." unique_id=805032205 instance=ExtResource("3_4wpew")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19901192, 0)
+
+[node name="Interactable" parent="." unique_id=1314814483 instance=ExtResource("4_l5cdx")]
+interact_name = "Press 'E' to Light Fire"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable" unique_id=1759123588]
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0, 0)
+shape = SubResource("SphereShape3D_j2xvu")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1234405723]
+replication_config = SubResource("SceneReplicationConfig_ulp66")
+
+[editable path="pot_large2"]

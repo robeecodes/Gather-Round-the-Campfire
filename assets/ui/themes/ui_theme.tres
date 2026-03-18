@@ -1,0 +1,8 @@
+[gd_resource type="Theme" format=3 uid="uid://bn3jsta8q4qfu"]
+
+[ext_resource type="FontFile" uid="uid://dlagsp0kmf08q" path="res://assets/ui/fonts/bear-days-font/BearDays-0vnnX.ttf" id="1_iy4nd"]
+
+[resource]
+default_font = ExtResource("1_iy4nd")
+Button/font_sizes/font_size = 48
+Label/font_sizes/font_size = 64

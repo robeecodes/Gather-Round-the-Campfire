@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://crn8lmubatadk"]
+
+[ext_resource type="PackedScene" uid="uid://c2vsiuyeed53u" path="res://assets/player/Hats/Cowboy Hat.glb" id="1_2v0jk"]
+
+[node name="Cowboy Hat" unique_id=958169760 instance=ExtResource("1_2v0jk")]
+transform = Transform3D(0.32, 0, 0, 0, 0.32, 0, 0, 0, 0.32, 0, 0, 0)
+
+[node name="Cowboy_Hat_Cylinder" parent="." index="0" unique_id=1268653845]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.019, 0)

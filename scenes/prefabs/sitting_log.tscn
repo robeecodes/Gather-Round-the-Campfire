@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://drb2fo2g3st3s"]
+
+[ext_resource type="PackedScene" uid="uid://b1h68vexfvk67" path="res://assets/environment/kenney_nature-kit/Models/GLTF format/log.glb" id="1_ahgyh"]
+[ext_resource type="Script" uid="uid://dwj8vf0r0y5ib" path="res://scenes/prefabs/sitting_log.gd" id="1_syuax"]
+[ext_resource type="PackedScene" uid="uid://bw11jnkygj800" path="res://scenes/interactable.tscn" id="2_syuax"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x2n6w"]
+radius = 0.09423828
+height = 0.71417356
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_b5yfj"]
+radius = 0.5930501
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_syuax"]
+properties/0/path = NodePath("..:occupied_by")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="SittingLog" type="Node3D" unique_id=1728090455]
+script = ExtResource("1_syuax")
+
+[node name="log2" parent="." unique_id=1775544627 instance=ExtResource("1_ahgyh")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="log2/log" parent_id_path=PackedInt32Array(1775544627, 1325991234) index="0" unique_id=1464821918]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.007736653, 0.086602546, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="log2/log/StaticBody3D" unique_id=1866281407]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.581447e-05, 0)
+shape = SubResource("CapsuleShape3D_x2n6w")
+
+[node name="Interactable" parent="." unique_id=1314814483 instance=ExtResource("2_syuax")]
+interact_name = "Press 'E' to sit"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable" unique_id=1312518152]
+shape = SubResource("SphereShape3D_b5yfj")
+
+[node name="SitMarker" type="Marker3D" parent="." unique_id=1808949991]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.052823864, -1.4901161e-08, 0.09444088)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=488366875]
+root_path = NodePath("../Interactable")
+replication_config = SubResource("SceneReplicationConfig_syuax")
+
+[editable path="log2"]
+[editable path="Interactable"]

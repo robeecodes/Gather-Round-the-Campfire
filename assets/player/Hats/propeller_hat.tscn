@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dou34d673yh60"]
+
+[ext_resource type="PackedScene" uid="uid://dj16agugm5qwe" path="res://assets/player/Hats/Propeller hat.glb" id="1_dyoa4"]
+
+[node name="Propeller hat" unique_id=2046160987 instance=ExtResource("1_dyoa4")]
+
+[node name="PropellerCap_01_Roundcube_001" parent="." index="0" unique_id=1165326721]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, -0.023655713, 0.06652167)

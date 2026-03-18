@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://cjjne6lcfle2w"]
+
+[ext_resource type="Theme" uid="uid://bn3jsta8q4qfu" path="res://assets/ui/themes/ui_theme.tres" id="1_ofc3v"]
+[ext_resource type="Script" uid="uid://b6uy17nyx838j" path="res://scripts/interacting_component.gd" id="1_syslh"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_syslh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_k2dsw"]
+font_size = 20
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+
+[node name="InteractingComponent" type="Node3D" unique_id=1680044884]
+script = ExtResource("1_syslh")
+
+[node name="InteractRange" type="Area3D" parent="." unique_id=1055139131]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractRange" unique_id=655348398]
+shape = SubResource("SphereShape3D_syslh")
+
+[node name="InteractLabel" type="Label" parent="." unique_id=1463219536]
+visible = false
+z_index = 10
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -82.0
+offset_right = 96.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ofc3v")
+text = "Press 'E' to Interact"
+label_settings = SubResource("LabelSettings_k2dsw")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="area_entered" from="InteractRange" to="." method="_on_interact_range_area_entered"]
+[connection signal="area_exited" from="InteractRange" to="." method="_on_interact_range_area_exited"]

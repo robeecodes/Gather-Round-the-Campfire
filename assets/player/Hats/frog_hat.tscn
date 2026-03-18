@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://ejfao5cpl3c6"]
+
+[ext_resource type="PackedScene" uid="uid://w5aqcvdi4fnl" path="res://assets/player/Hats/Frog Hat.glb" id="1_ctpdj"]
+
+[node name="Frog Hat" unique_id=1639021800 instance=ExtResource("1_ctpdj")]
+transform = Transform3D(0.355, 0, 0, 0, 0.355, 0, 0, 0, 0.355, 0, 0, 0)
+
+[node name="FrogHat_Cylinder" parent="." index="0" unique_id=1102957220]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
