@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://cmsm0mtvsjf54"]
+
+[ext_resource type="Script" uid="uid://c1dcdad1e2p21" path="res://assets/3dFireSmoke_v1.0/Scenes/3d_fire_smoke.gd" id="1_iqsyy"]
+[ext_resource type="PackedScene" uid="uid://crb7b2ap5nl0i" path="res://assets/3dFireSmoke_v1.0/Scenes/3d_fire.tscn" id="1_xlww7"]
+[ext_resource type="PackedScene" uid="uid://bsn4rs80jfgu3" path="res://assets/3dFireSmoke_v1.0/Scenes/smoke_particle_1.tscn" id="2_p15do"]
+[ext_resource type="PackedScene" uid="uid://p27pshnwxf0w" path="res://assets/3dFireSmoke_v1.0/Scenes/smoke_particle_2.tscn" id="3_xlww7"]
+[ext_resource type="ArrayMesh" uid="uid://bm8tovng1jiiu" path="res://assets/3dFireSmoke_v1.0/Models/timber.obj" id="4_xlww7"]
+[ext_resource type="PackedScene" uid="uid://bw11jnkygj800" path="res://scenes/interactable.tscn" id="5_24xod"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_try20"]
+albedo_color = Color(0.243137, 0.117647, 0.0313726, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_iqsyy"]
+height = 0.9916992
+radius = 0.28320313
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_iqsyy"]
+radius = 1.6458687
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_iqsyy"]
+properties/0/path = NodePath("3DFire:visible")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Interactable:is_interactable")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Interactable:interact_name")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("OmniLight3D:visible")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+
+[node name="Campfire" type="Node3D" unique_id=92424931]
+script = ExtResource("1_iqsyy")
+
+[node name="3DFire" parent="." unique_id=561256039 instance=ExtResource("1_xlww7")]
+transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0, 0.437072, -0.009750158)
+visible = false
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=336503663]
+visible = false
+light_color = Color(0.92452556, 0.4621749, 0.2672592, 1)
+
+[node name="SmokeParticle1" parent="." unique_id=1919267315 instance=ExtResource("2_p15do")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00973874, 0.948762, -0.04172115)
+visible = false
+
+[node name="SmokeParticle2" parent="." unique_id=657961298 instance=ExtResource("3_xlww7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0220734, 0.541112, 0.017667845)
+visible = false
+
+[node name="Env" type="Node3D" parent="." unique_id=864577709]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.12528884)
+
+[node name="Logs" type="StaticBody3D" parent="Env" unique_id=953987507]
+
+[node name="Timber0" type="MeshInstance3D" parent="Env/Logs" unique_id=1898698383]
+transform = Transform3D(1, 0, 0, 0, 0.34202, -0.939693, 0, 0.939693, 0.34202, 0, 0.269237, 0)
+material_override = SubResource("StandardMaterial3D_try20")
+mesh = ExtResource("4_xlww7")
+
+[node name="Timber1" type="MeshInstance3D" parent="Env/Logs" unique_id=879408871]
+transform = Transform3D(0.0366437, 0.939062, 0.34179, 0, 0.34202, -0.939693, -0.999328, 0.0344338, 0.0125329, 0.128355, 0.269237, -0.163663)
+material_override = SubResource("StandardMaterial3D_try20")
+mesh = ExtResource("4_xlww7")
+
+[node name="Timber2" type="MeshInstance3D" parent="Env/Logs" unique_id=416440053]
+transform = Transform3D(-0.994522, -0.0982242, -0.0357507, 0, 0.34202, -0.939693, 0.104528, -0.934545, -0.340146, -0.0219564, 0.269237, -0.313303)
+material_override = SubResource("StandardMaterial3D_try20")
+mesh = ExtResource("4_xlww7")
+
+[node name="Timber3" type="MeshInstance3D" parent="Env/Logs" unique_id=278185628]
+transform = Transform3D(-0.0348995, -0.93912, -0.341812, 0, 0.34202, -0.939693, 0.999391, -0.0327948, -0.0119363, -0.174095, 0.269237, -0.147272)
+material_override = SubResource("StandardMaterial3D_try20")
+mesh = ExtResource("4_xlww7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Env/Logs" unique_id=1041312951]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5041504, -0.17506182)
+shape = SubResource("CylinderShape3D_iqsyy")
+
+[node name="Interactable" parent="." unique_id=1314814483 instance=ExtResource("5_24xod")]
+interact_name = "Press 'E' to light fire"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable" unique_id=1734477497]
+shape = SubResource("SphereShape3D_iqsyy")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1620480184]
+replication_config = SubResource("SceneReplicationConfig_iqsyy")

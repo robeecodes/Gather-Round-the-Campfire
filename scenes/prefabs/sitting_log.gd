@@ -11,7 +11,7 @@ func _ready() -> void:
 
 func _on_interact() -> void:
 	var player := PlayerNetwork.get_current_player()
-	
+		
 	if occupied_by == "":
 		_sit_down(player)
 	elif occupied_by == player.name:
@@ -22,9 +22,13 @@ func _sit_down(player):
 	player.get_node("3DGodotRobot").rotation.y = rotation.y
 	
 	player.sit()
-		
-	occupied_by = player.name
+
+	_set_occupied.rpc(player.name)
 
 func _stand_up(player):
 	player.stand()
-	occupied_by = ""
+	_set_occupied.rpc("")
+
+@rpc("any_peer", "call_local")
+func _set_occupied(name: String):
+	occupied_by = name

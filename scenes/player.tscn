@@ -25,7 +25,7 @@ cull_mode = 2
 albedo_texture = ExtResource("7_ur7pv")
 roughness = 0.4
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_jej6c"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_f1ej7"]
 resource_local_to_scene = true
 resource_name = "3DGodotRobot_Cube_005"
 _surfaces = [{
@@ -46,7 +46,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f1ej7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oprun"]
 resource_local_to_scene = true
 albedo_texture = ExtResource("2_smehm")
 
@@ -56,7 +56,7 @@ cull_mode = 2
 albedo_texture = ExtResource("7_ur7pv")
 roughness = 0.4
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_oprun"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_a8ls1"]
 resource_local_to_scene = true
 resource_name = "3DGodotRobot_Cube_004"
 _surfaces = [{
@@ -77,7 +77,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a8ls1"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qfm1y"]
 resource_local_to_scene = true
 albedo_texture = ExtResource("2_smehm")
 
@@ -87,7 +87,7 @@ cull_mode = 2
 albedo_color = Color(0, 0, 0, 1)
 roughness = 0.5
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_qfm1y"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_fulsm"]
 resource_local_to_scene = true
 resource_name = "3DGodotRobot_Cube_003"
 _surfaces = [{
@@ -122,11 +122,11 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fulsm"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4r5pv"]
 resource_local_to_scene = true
 albedo_texture = ExtResource("2_smehm")
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_4r5pv"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_60mlk"]
 resource_local_to_scene = true
 resource_name = "3DGodotRobot_Cube"
 _surfaces = [{
@@ -147,7 +147,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_60mlk"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i4ail"]
 resource_local_to_scene = true
 albedo_texture = ExtResource("2_smehm")
 
@@ -202,7 +202,6 @@ bones/0/rotation = Quaternion(0.014909218, 1.1919608e-07, 1.7773132e-09, 0.99988
 bones/1/rotation = Quaternion(0.029448897, -1.52228e-14, 7.0211668e-09, 0.9995664)
 bones/4/position = Vector3(-3.6572172e-16, 0.15150139, -0.011741015)
 bones/4/rotation = Quaternion(0.00540027, -1.1920753e-07, -6.4376265e-10, 0.99998546)
-bones/5/rotation = Quaternion(0.008212382, -4.9427408e-14, -1.9579842e-09, 0.99996626)
 bones/7/position = Vector3(7.444091e-08, 0.5406087, 0.3122278)
 bones/8/position = Vector3(9.97907e-08, 0.06115723, 0.4185525)
 bones/8/rotation = Quaternion(0.003939635, 1.1920836e-07, -4.696411e-10, 0.99999225)
@@ -228,23 +227,28 @@ bones/23/rotation = Quaternion(-0.60871387, -0.0033154436, 0.0047912565, 0.79336
 bones/24/rotation = Quaternion(6.345524e-08, 0.9807643, -0.19519578, -1.8277877e-06)
 
 [node name="Bottom" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="0" unique_id=1364180486]
-mesh = SubResource("ArrayMesh_jej6c")
-surface_material_override/0 = SubResource("StandardMaterial3D_f1ej7")
+mesh = SubResource("ArrayMesh_f1ej7")
+surface_material_override/0 = SubResource("StandardMaterial3D_oprun")
 
 [node name="Chest" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="1" unique_id=184411318]
-mesh = SubResource("ArrayMesh_oprun")
-surface_material_override/0 = SubResource("StandardMaterial3D_a8ls1")
+mesh = SubResource("ArrayMesh_a8ls1")
+surface_material_override/0 = SubResource("StandardMaterial3D_qfm1y")
 
 [node name="Face" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="2" unique_id=1871698800]
-mesh = SubResource("ArrayMesh_qfm1y")
-surface_material_override/0 = SubResource("StandardMaterial3D_fulsm")
-
-[node name="Hat_Node" type="Node3D" parent="3DGodotRobot/RobotArmature/Skeleton3D/Face" index="0" unique_id=1536953400]
-transform = Transform3D(5.7623057, 0, 0, 0, 5.7623057, 0, 0, 0, 5.7623057, 0, 2.442717, 0)
+mesh = SubResource("ArrayMesh_fulsm")
+surface_material_override/0 = SubResource("StandardMaterial3D_4r5pv")
 
 [node name="Llimbs and head" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="3" unique_id=1235072853]
-mesh = SubResource("ArrayMesh_4r5pv")
-surface_material_override/0 = SubResource("StandardMaterial3D_60mlk")
+mesh = SubResource("ArrayMesh_60mlk")
+surface_material_override/0 = SubResource("StandardMaterial3D_i4ail")
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="4" unique_id=727561557]
+transform = Transform3D(1, 1.0214052e-14, -2.384185e-07, 1.8785287e-09, 0.9999688, 0.007879127, 2.3841115e-07, -0.00787914, 0.9999689, 1.7817827e-15, 1.7220589, 0.029791467)
+bone_name = "Head"
+bone_idx = 5
+
+[node name="Hat_Node" type="Node3D" parent="3DGodotRobot/RobotArmature/Skeleton3D/BoneAttachment3D" unique_id=1536953400]
+transform = Transform3D(5.7623057, 1.0824623e-08, 1.3737977e-06, 7.302002e-15, 5.7621274, -0.045401942, -1.3738406e-06, 0.04540202, 5.762127, -5.7488454e-09, 0.72087073, -0.024112377)
 
 [node name="AnimationPlayer" parent="3DGodotRobot" index="1" unique_id=1939152961]
 process_mode = 3
@@ -261,7 +265,6 @@ spring_length = 2.0
 
 [node name="Camera3D" type="Camera3D" parent="SpringArmPivot" unique_id=1771911324 node_paths=PackedStringArray("spring_arm")]
 transform = Transform3D(1, 0, 0, 0, 0.99888, 0.04731566, 0, -0.04731566, 0.99888, 0, 0, 0)
-fov = 13.31389
 script = ExtResource("4_dqkch")
 spring_arm = NodePath("../SpringArm3D/SpringPosition")
 lerp_power = 6.0
@@ -276,7 +279,7 @@ replication_config = SubResource("SceneReplicationConfig_dqkch")
 
 [node name="HatSpawner" type="MultiplayerSpawner" parent="." unique_id=165715141]
 _spawnable_scenes = PackedStringArray("uid://ejfao5cpl3c6", "uid://crn8lmubatadk", "uid://bowg0icq12vlr", "uid://dou34d673yh60")
-spawn_path = NodePath("../3DGodotRobot/RobotArmature/Skeleton3D/Face/Hat_Node")
+spawn_path = NodePath("../3DGodotRobot/RobotArmature/Skeleton3D/BoneAttachment3D/Hat_Node")
 
 [editable path="3DGodotRobot"]
 [editable path="InteractingComponent"]

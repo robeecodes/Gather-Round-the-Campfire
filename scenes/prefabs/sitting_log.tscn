@@ -12,7 +12,7 @@ height = 0.71417356
 radius = 0.5930501
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_syuax"]
-properties/0/path = NodePath("..:occupied_by")
+properties/0/path = NodePath(".:occupied_by")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
@@ -39,7 +39,6 @@ shape = SubResource("SphereShape3D_b5yfj")
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.052823864, -1.4901161e-08, 0.09444088)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=488366875]
-root_path = NodePath("../Interactable")
 replication_config = SubResource("SceneReplicationConfig_syuax")
 
 [editable path="log2"]

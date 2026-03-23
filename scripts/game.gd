@@ -2,9 +2,15 @@ class_name Game
 extends Node
 
 @onready var menu := $Menu
+
+# Customisation options
 @onready var pause_menu: CanvasLayer = $PauseMenu
 @onready var skin_colour_option: OptionButton = $PauseMenu/VSplitContainer/SkinColour
 @onready var hat_option: OptionButton = $PauseMenu/VSplitContainer/Hat
+
+# Campfire options
+@export var stories_menu: CanvasLayer
+@onready var tell_story_button: Button = $StoriesMenu/VBoxContainer/TellStory
 
 const PLAYER := preload("res://scenes/player.tscn")
 
@@ -37,15 +43,15 @@ func add_player(pid) -> Player:
 	player.name = str(pid)
 	player.global_position = $Level.get_child(PlayerNetwork.players.size()).global_position
 	
-	PlayerNetwork.players.append(player)
-
-	for p in PlayerNetwork.players:
+	PlayerNetwork.players[player.name] = player
+	
+	for p in PlayerNetwork.players.values():
 		p.set_player_skin(p.player_info.skin_colour)
 		#### Sync to all other peers
 		rpc("sync_player_skin", int(p.name), p.player_info.skin_colour)
 	
 	return player
-		
+
 # Pause Menu
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Pause"):
@@ -72,12 +78,12 @@ func _on_skin_colour_item_selected(index: int) -> void:
 	rpc("sync_player_skin", int(player.name), skin)
 
 @rpc("any_peer", "call_local")
-func sync_player_skin(id: int, skin: int):	
-	for p in PlayerNetwork.players:
-		if p.name == str(id):
-			p.player_info.skin_colour = skin
-			p.set_player_skin(skin)
-			break
+func sync_player_skin(id: int, skin: int):
+	var player := PlayerNetwork.get_player_by_name(str(id))
+	
+	if player:
+		player.player_info.skin_colour = skin
+		player.set_player_skin(skin)
 
 # Update Hat
 func _on_hat_item_selected(index: int) -> void:
@@ -87,13 +93,3 @@ func _on_hat_item_selected(index: int) -> void:
 	
 	player.player_info.accessories.hat = hat
 	player.set_player_hat(hat)
-	
-	rpc("sync_player_hat", int(player.name), hat)
-
-@rpc("any_peer", "call_local")
-func sync_player_hat(id: int, hat: int):	
-	for p in PlayerNetwork.players:
-		if p.name == str(id):
-			p.player_info.accessories.hat = hat
-			p.set_player_hat(hat)
-			break

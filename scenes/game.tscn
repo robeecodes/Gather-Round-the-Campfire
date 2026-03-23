@@ -9,8 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://bi3a3dswpjb1c" path="res://assets/environment/kenney_nature-kit/Models/GLTF format/tree_oak.glb" id="5_trtic"]
 [ext_resource type="PackedScene" uid="uid://ul1lhk0eivbe" path="res://assets/environment/kenney_nature-kit/Models/GLTF format/log_stack.glb" id="7_ca42v"]
 [ext_resource type="PackedScene" uid="uid://txij12gv45om" path="res://assets/environment/kenney_nature-kit/Models/scenes/ground_grass_2.tscn" id="10_264po"]
-[ext_resource type="PackedScene" uid="uid://cmkdv8v0gu5mc" path="res://scenes/prefabs/campfire.tscn" id="12_dinhu"]
 [ext_resource type="Texture2D" uid="uid://cuh36e6pletxd" path="res://assets/ui/menu-bg.jpg" id="12_kvuet"]
+[ext_resource type="PackedScene" uid="uid://cmsm0mtvsjf54" path="res://assets/3dFireSmoke_v1.0/Scenes/3DFireSmoke.tscn" id="13_ir15t"]
 [ext_resource type="PackedScene" uid="uid://drb2fo2g3st3s" path="res://scenes/prefabs/sitting_log.tscn" id="13_kvuet"]
 [ext_resource type="Theme" uid="uid://bn3jsta8q4qfu" path="res://assets/ui/themes/ui_theme.tres" id="13_trtic"]
 
@@ -18,13 +18,18 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_kvuet"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_trtic"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ir15t"]
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ir15t"]
-sky_top_color = Color(0.100099996, 0.39039007, 0.77, 1)
-sky_horizon_color = Color(0.98446244, 0.8790416, 0.72588587, 1)
-sky_curve = 0.06997746
+sky_top_color = Color(4.2883796e-05, 0.00064185227, 0.002868539, 1)
+sky_horizon_color = Color(0.4309974, 0.23298356, 0.10264135, 1)
+sky_curve = 0.046167936
 sky_cover = ExtResource("4_trtic")
-sky_cover_modulate = Color(0.42630002, 0.699915, 0.87, 1)
-ground_bottom_color = Color(0.296, 0.67399997, 0.8, 1)
+sky_cover_modulate = Color(0.22682542, 0.47587323, 0.62312275, 1)
+ground_bottom_color = Color(0.08627451, 0.19215687, 0.14901961, 1)
+ground_horizon_color = Color(0.37406668, 0.186, 0.62, 1)
 
 [sub_resource type="Sky" id="Sky_ca42v"]
 sky_material = SubResource("ProceduralSkyMaterial_ir15t")
@@ -32,6 +37,7 @@ sky_material = SubResource("ProceduralSkyMaterial_ir15t")
 [sub_resource type="Environment" id="Environment_rysoc"]
 background_mode = 2
 sky = SubResource("Sky_ca42v")
+ambient_light_source = 3
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kvpfn"]
 points = PackedVector3Array(0.44435745, 0.11813715, -0.29958615, 0.27773428, -0.0068886876, 0.32541114, -0.4333131, 0.00013224743, 0.2898, -0.027756026, 0.5625, -0.29958615, -0.44435745, 0.118081406, -0.29958615, 0.44435745, 0.11813715, 0.29756537, -0.44435745, 0.118081406, 0.29756537, 0.42721152, 0.004095416, -0.2886, 0.027756026, 0.5625, 0.29756537, -0.42721152, 0.004041836, -0.2886, -0.12503263, -0.006944418, -0.35514444, 0.027756026, 0.5625, -0.29958615, -0.027756026, 0.5625, 0.29756537, -0.27773428, -0.006944418, 0.32541114, 0.4333131, 0.00018659262, 0.2898, 0.0971896, 0.10425778, -0.35514444, 0.14731807, 0.003303789, -0.3429608, 0.027756026, -0.006944418, -0.29958615)
@@ -232,8 +238,9 @@ height = 1.2262399
 [sub_resource type="BoxShape3D" id="BoxShape3D_ir15t"]
 size = Vector3(0.42471713, 0.3464102, 0.71)
 
-[node name="Game" type="Node" unique_id=1987695889]
+[node name="Game" type="Node" unique_id=1987695889 node_paths=PackedStringArray("stories_menu")]
 script = ExtResource("1_kvuet")
+stories_menu = NodePath("StoriesMenu")
 
 [node name="Menu" type="CanvasLayer" parent="." unique_id=181353599]
 
@@ -346,12 +353,51 @@ popup/item_3/id = 3
 popup/item_4/text = "Propellor"
 popup/item_4/id = 4
 
+[node name="StoriesMenu" type="CanvasLayer" parent="." unique_id=1434153834]
+visible = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StoriesMenu" unique_id=79425483]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -374.0
+offset_top = -61.0
+offset_right = -85.0
+offset_bottom = 61.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme = ExtResource("13_trtic")
+metadata/_edit_use_anchors_ = true
+
+[node name="Waiting" type="Label" parent="StoriesMenu/VBoxContainer" unique_id=1134650388]
+layout_mode = 2
+text = "Waiting for all players..."
+label_settings = SubResource("LabelSettings_trtic")
+
+[node name="TellStory" type="Button" parent="StoriesMenu/VBoxContainer" unique_id=389151695]
+layout_mode = 2
+disabled = true
+text = "Tell a Story"
+
+[node name="Exit" type="Button" parent="StoriesMenu/VBoxContainer" unique_id=877242989]
+layout_mode = 2
+text = "Exit"
+
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1560937328]
 _spawnable_scenes = PackedStringArray("uid://ryjbketydl5q")
 spawn_path = NodePath("..")
 
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=175096516]
+replication_config = SubResource("SceneReplicationConfig_ir15t")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1940768167]
 transform = Transform3D(1, 0, 0, 0, 0.42942378, 0.9031031, 0, -0.9031031, 0.42942378, 0, 0, 0)
+light_color = Color(0.825811, 0.6846571, 0.25139228, 1)
+light_energy = 0.3
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1216959369]
 environment = SubResource("Environment_rysoc")
@@ -369,6 +415,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.09972215, 0, -2.4337783)
 
 [node name="SpawnPoint4" type="Marker3D" parent="Level" unique_id=497250359]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.76101, 0, -2.8668942)
+
+[node name="Campfire" parent="Level" unique_id=92424931 instance=ExtResource("13_ir15t")]
+transform = Transform3D(0.375, 0, 0, 0, 0.375, 0, 0, 0, 0.375, 0.09478164, -0.05392387, -0.70521796)
 
 [node name="tent_detailedOpen3" parent="Level" unique_id=1687035858 instance=ExtResource("1_vtaks")]
 transform = Transform3D(-0.6300529, 0, 0.7765527, 0, 1, 0, -0.7765527, 0, -0.6300529, 1.2979293, 0, -2.117869)
@@ -1611,9 +1660,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 6)
 [node name="ground_grass321" parent="Level/Ground" unique_id=1766655984 instance=ExtResource("10_264po")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 5)
 
-[node name="Campfire" parent="Level/Ground" unique_id=1408762326 instance=ExtResource("12_dinhu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2309416, 0.0005049631, -0.8562707)
-
 [node name="SittingLog" parent="Level" unique_id=1728090455 instance=ExtResource("13_kvuet")]
 transform = Transform3D(0.65093327, 0, 0.7591351, 0, 1, 0, -0.7591351, 0, 0.65093327, -0.6846845, 0, -1.5290034)
 
@@ -1656,3 +1702,6 @@ transform = Transform3D(0.40445536, 0, -0.9145579, 0, 1, 0, 0.9145579, 0, 0.4044
 [editable path="Level/Trees/tree_oak8"]
 [editable path="Level/Trees/tree_oak9"]
 [editable path="Level/log_stack2"]
+[editable path="Level/SittingLog2"]
+[editable path="Level/SittingLog2/log2"]
+[editable path="Level/SittingLog2/Interactable"]

@@ -103,7 +103,7 @@ func set_mesh_texture(mesh_instance: MeshInstance3D, texture: CompressedTexture2
 # HAT
 @rpc("any_peer", "reliable")
 func set_player_hat(hat_id: int) -> void:
-	var hat_node := $"3DGodotRobot/RobotArmature/Skeleton3D/Face/Hat_Node"
+	var hat_node: Node3D = $"3DGodotRobot/RobotArmature/Skeleton3D/BoneAttachment3D/Hat_Node"
 	if hat_node.get_child_count() > 0:
 		for child in hat_node.get_children():
 			hat_node.remove_child(child)
