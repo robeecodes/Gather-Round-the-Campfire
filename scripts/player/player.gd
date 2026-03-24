@@ -80,6 +80,7 @@ func _physics_process(delta: float) -> void:
 
 func sit() -> void:
 	set_physics_process(false)
+	player_info.is_sitting = true
 
 func stand() -> void:
 	set_physics_process(true)

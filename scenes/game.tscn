@@ -238,9 +238,10 @@ height = 1.2262399
 [sub_resource type="BoxShape3D" id="BoxShape3D_ir15t"]
 size = Vector3(0.42471713, 0.3464102, 0.71)
 
-[node name="Game" type="Node" unique_id=1987695889 node_paths=PackedStringArray("stories_menu")]
+[node name="Game" type="Node" unique_id=1987695889 node_paths=PackedStringArray("stories_menu", "logs")]
 script = ExtResource("1_kvuet")
 stories_menu = NodePath("StoriesMenu")
+logs = [NodePath("Level/SittingLog"), NodePath("Level/SittingLog2")]
 
 [node name="Menu" type="CanvasLayer" parent="." unique_id=181353599]
 
@@ -1671,6 +1672,9 @@ transform = Transform3D(0.40445536, 0, -0.9145579, 0, 1, 0, 0.9145579, 0, 0.4044
 [connection signal="pressed" from="PauseMenu/VSplitContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="item_selected" from="PauseMenu/VSplitContainer/SkinColour" to="." method="_on_skin_colour_item_selected"]
 [connection signal="item_selected" from="PauseMenu/VSplitContainer/Hat" to="." method="_on_hat_item_selected"]
+[connection signal="pressed" from="StoriesMenu/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
+[connection signal="sit" from="Level/SittingLog" to="." method="_on_sitting_log_sit"]
+[connection signal="sit" from="Level/SittingLog2" to="." method="_on_sitting_log_2_sit"]
 
 [editable path="Level/tent_detailedOpen3"]
 [editable path="Level/tent_detailedOpen2"]

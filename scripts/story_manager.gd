@@ -7,4 +7,7 @@ var stories := [
 ]
 
 func select_story() -> void:
-	chosen_story = stories.pick_random()
+	chosen_story = stories.pick_random().new()
+		
+	for line in chosen_story.story:
+		print(line) 

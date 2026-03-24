@@ -10,7 +10,9 @@ extends Node
 
 # Campfire options
 @export var stories_menu: CanvasLayer
-@onready var tell_story_button: Button = $StoriesMenu/VBoxContainer/TellStory
+@onready var waiting: Label = $StoriesMenu/VBoxContainer/Waiting
+@onready var tell_story: Button = $StoriesMenu/VBoxContainer/TellStory
+@export var logs: Array[SittingLog]
 
 const PLAYER := preload("res://scenes/player.tscn")
 
@@ -93,3 +95,36 @@ func _on_hat_item_selected(index: int) -> void:
 	
 	player.player_info.accessories.hat = hat
 	player.set_player_hat(hat)
+
+# --------- STORYTELLING --------- #
+func _on_sitting_log_sit() -> void:
+	_when_sat_on_log()
+
+func _on_sitting_log_2_sit() -> void:
+	_when_sat_on_log()
+
+func _when_sat_on_log() -> void:
+	stories_menu.show()
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		
+	print(PlayerNetwork.players.values()[0].player_info)
+		
+	if PlayerNetwork.players.values().all(func(p): return p.player_info.is_sitting):
+		waiting.hide()
+		tell_story.disabled = false
+
+func _on_exit_pressed() -> void:
+	var player := PlayerNetwork.get_current_player()
+	
+	waiting.show()
+	
+	for log in logs:
+		if log.occupied_by == player.name:
+			log.stand_up(player)
+			break
+
+	stories_menu.hide()
+	tell_story.disabled = true
+
+func _tell_story():
+	StoryManager.select_story()

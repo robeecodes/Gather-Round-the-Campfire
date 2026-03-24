@@ -1,6 +1,29 @@
 extends Story
 
-func _ready() -> void:
+func _init() -> void:
+	words = {
+		character_a = "name",
+		character_b = "name",
+		weather = "weather",
+		drink_1 = "drink",
+		drink_2 = "drink",
+		adjective = "adjective",
+		noun_1 = "noun",
+		past_verb_1 = "past tense verb",
+		noun_2 = "noun",
+		adverb_1 = "adverb",
+		noun_3 = "noun",
+		past_verb_2 = "past tense verb",
+		number = "number",
+		ing_verb_1 = "verb ending in 'ing'",
+		exclamation = "exclamation",
+		ing_verb_2 = "verb ending in 'ing'",
+		past_verb_3 = "past tense verb",
+		confirmation = "confirmation",
+		adverb_2 = "adverb",
+		noun_4 = "noun"
+	}
+	
 	story = [
 		"As it was a perfect, {weather} day, {Character A} and {Character B} decided it was time for another fishing trip.".format(
 			{
@@ -79,26 +102,3 @@ func _ready() -> void:
 		),
 		"Perhaps it was time to pack it in."
 	]
-	
-	words = {
-		character_a = "name",
-		character_b = "name",
-		weather = "weather",
-		drink_1 = "drink",
-		drink_2 = "drink",
-		adjective = "adjective",
-		noun_1 = "noun",
-		past_verb_1 = "past tense verb",
-		noun_2 = "noun",
-		adverb_1 = "adverb",
-		noun_3 = "noun",
-		past_verb_2 = "past tense verb",
-		number = "number",
-		ing_verb_1 = "verb ending in 'ing'",
-		exclamation = "exclamation",
-		ing_verb_2 = "verb ending in 'ing'",
-		past_verb_3 = "past tense verb",
-		confirmation = "confirmation",
-		adverb_2 = "adverb",
-		noun_4 = "noun"
-	}

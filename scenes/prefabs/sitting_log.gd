@@ -1,3 +1,4 @@
+class_name SittingLog
 extends Node3D
 
 @onready var interactable: Area3D = $Interactable
@@ -6,16 +7,16 @@ extends Node3D
 
 @export var occupied_by: String = ""
 
+signal sit
+
 func _ready() -> void:
-	interactable.interact = _on_interact	
+	interactable.interact = _on_interact
 
 func _on_interact() -> void:
 	var player := PlayerNetwork.get_current_player()
 		
 	if occupied_by == "":
 		_sit_down(player)
-	elif occupied_by == player.name:
-		_stand_up(player)
 
 func _sit_down(player):
 	player.global_position = sit_marker.global_position
@@ -24,8 +25,10 @@ func _sit_down(player):
 	player.sit()
 
 	_set_occupied.rpc(player.name)
+	
+	sit.emit()
 
-func _stand_up(player):
+func stand_up(player):
 	player.stand()
 	_set_occupied.rpc("")
 
