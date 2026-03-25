@@ -26,7 +26,7 @@ func _init() -> void:
 
 func update_story() -> void:
 	story = [
-		"As it was a perfect, {weather} day, {Character A} and {Character B}\ndecided it was time for another fishing trip.".format(
+		"As it was a story two, {weather} day, {Character A} and {Character B}\ndecided it was time for another fishing trip.".format(
 			{
 				"weather": words.weather,
 				"Character A": words.character_a,

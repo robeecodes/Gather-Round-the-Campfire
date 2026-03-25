@@ -34,7 +34,8 @@ const JUMP_VELOCITY = 4.5
 	accessories = {
 		hat = Hat_Type.NONE
 	},
-	is_sitting = false
+	is_sitting = false,
+	adding_words = false
 }
 
 func _enter_tree() -> void:

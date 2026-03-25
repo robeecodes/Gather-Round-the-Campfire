@@ -26,11 +26,15 @@ func _sit_down(player):
 
 	_set_occupied.rpc(player.name)
 	
+	interactable.is_interactable = false
+	
 	sit.emit()
 
 func stand_up(player):
 	player.stand()
 	_set_occupied.rpc("")
+	
+	interactable.is_interactable = true
 
 @rpc("any_peer", "call_local")
 func _set_occupied(name: String):

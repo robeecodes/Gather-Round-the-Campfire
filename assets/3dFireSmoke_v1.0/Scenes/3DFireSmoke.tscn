@@ -34,6 +34,10 @@ properties/3/replication_mode = 1
 [node name="Campfire" type="Node3D" unique_id=92424931]
 script = ExtResource("1_iqsyy")
 
+[node name="Line" type="Label3D" parent="." unique_id=1028120337]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2710428, 0)
+billboard = 1
+
 [node name="3DFire" parent="." unique_id=561256039 instance=ExtResource("1_xlww7")]
 transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0, 0.437072, -0.009750158)
 visible = false

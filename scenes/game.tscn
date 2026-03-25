@@ -357,7 +357,7 @@ popup/item_4/id = 4
 [node name="StoriesMenu" type="CanvasLayer" parent="." unique_id=1434153834]
 visible = false
 
-[node name="VBoxContainer" type="VBoxContainer" parent="StoriesMenu" unique_id=79425483]
+[node name="WaitingMenu" type="VBoxContainer" parent="StoriesMenu" unique_id=79425483]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -372,21 +372,46 @@ grow_vertical = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 theme = ExtResource("13_trtic")
-metadata/_edit_use_anchors_ = true
 
-[node name="Waiting" type="Label" parent="StoriesMenu/VBoxContainer" unique_id=1134650388]
+[node name="Waiting" type="Label" parent="StoriesMenu/WaitingMenu" unique_id=1134650388]
 layout_mode = 2
 text = "Waiting for all players..."
 label_settings = SubResource("LabelSettings_trtic")
 
-[node name="TellStory" type="Button" parent="StoriesMenu/VBoxContainer" unique_id=389151695]
+[node name="TellStory" type="Button" parent="StoriesMenu/WaitingMenu" unique_id=389151695]
 layout_mode = 2
 disabled = true
 text = "Tell a Story"
 
-[node name="Exit" type="Button" parent="StoriesMenu/VBoxContainer" unique_id=877242989]
+[node name="Exit" type="Button" parent="StoriesMenu/WaitingMenu" unique_id=877242989]
 layout_mode = 2
 text = "Exit"
+
+[node name="WordEntryMenu" type="VBoxContainer" parent="StoriesMenu" unique_id=411978332]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -124.5
+offset_top = -85.0
+offset_right = 124.5
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("13_trtic")
+
+[node name="WordEntry" type="LineEdit" parent="StoriesMenu/WordEntryMenu" unique_id=1119255657]
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("13_trtic")
+alignment = 1
+
+[node name="SubmitWord" type="Button" parent="StoriesMenu/WordEntryMenu" unique_id=2109705810]
+layout_mode = 2
+text = "Submit"
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1560937328]
 _spawnable_scenes = PackedStringArray("uid://ryjbketydl5q")
@@ -1672,7 +1697,10 @@ transform = Transform3D(0.40445536, 0, -0.9145579, 0, 1, 0, 0.9145579, 0, 0.4044
 [connection signal="pressed" from="PauseMenu/VSplitContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="item_selected" from="PauseMenu/VSplitContainer/SkinColour" to="." method="_on_skin_colour_item_selected"]
 [connection signal="item_selected" from="PauseMenu/VSplitContainer/Hat" to="." method="_on_hat_item_selected"]
-[connection signal="pressed" from="StoriesMenu/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="StoriesMenu/WaitingMenu/TellStory" to="." method="_on_tell_story_pressed"]
+[connection signal="pressed" from="StoriesMenu/WaitingMenu/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="StoriesMenu/WordEntryMenu/SubmitWord" to="." method="_on_submit_word_pressed"]
+[connection signal="story_complete" from="Level/Campfire" to="." method="_on_campfire_story_complete"]
 [connection signal="sit" from="Level/SittingLog" to="." method="_on_sitting_log_sit"]
 [connection signal="sit" from="Level/SittingLog2" to="." method="_on_sitting_log_2_sit"]
 

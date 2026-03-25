@@ -12,3 +12,6 @@ func get_player_by_name(name: String) -> Player:
 		return players[name]
 	
 	return null
+
+func get_player_index(player: Player) -> int:
+	return players.keys().find(player.name)
