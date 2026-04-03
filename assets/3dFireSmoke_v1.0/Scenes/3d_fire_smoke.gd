@@ -7,6 +7,9 @@ extends Node3D
 
 @export var story_status : int = 0
 
+var voices = DisplayServer.tts_get_voices_for_language("en")
+var voice_id = voices[0]
+
 signal story_complete
 
 func _ready() -> void:
@@ -21,7 +24,12 @@ func _on_interact() -> void:
 @rpc("call_local", "any_peer", "reliable")
 func progress_story() -> void:
 	if story_status < len(StoryManager.chosen_story.story):
-		line.text = StoryManager.chosen_story.story[story_status]
+		var current_line := StoryManager.chosen_story.story[story_status]
+		line.text = current_line
+		#DisplayServer.tts_speak(current_line, voice_id)
+		
+		#DisplayServer.tts_set_utterance_callack(TTS_UTTERANCE_ENDED,, )
+		
 	else:
 		line.text = ""
 		story_complete.emit()

@@ -135,4 +135,4 @@ func _campfire_telling_story():
 	
 	while telling_story:
 		campfire.progress_story()
-		await get_tree().create_timer(2).timeout
+		await get_tree().create_timer(4).timeout
