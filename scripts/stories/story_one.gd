@@ -1,6 +1,6 @@
 extends Story
 
-func _init() -> void:	
+func _init() -> void:
 	words = {
 		character_a = "name",
 		character_b = "name",

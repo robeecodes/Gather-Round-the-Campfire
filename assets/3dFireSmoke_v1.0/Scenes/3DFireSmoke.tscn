@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://p27pshnwxf0w" path="res://assets/3dFireSmoke_v1.0/Scenes/smoke_particle_2.tscn" id="3_xlww7"]
 [ext_resource type="ArrayMesh" uid="uid://bm8tovng1jiiu" path="res://assets/3dFireSmoke_v1.0/Models/timber.obj" id="4_xlww7"]
 [ext_resource type="PackedScene" uid="uid://bw11jnkygj800" path="res://scenes/interactable.tscn" id="5_24xod"]
+[ext_resource type="AudioStream" uid="uid://c301jdb3nxfu4" path="res://assets/sfx/soundreality-fire-crackling-sound-499636.mp3" id="7_bvrwk"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_try20"]
 albedo_color = Color(0.243137, 0.117647, 0.0313726, 1)
@@ -40,7 +41,6 @@ billboard = 1
 
 [node name="3DFire" parent="." unique_id=561256039 instance=ExtResource("1_xlww7")]
 transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0, 0.437072, -0.009750158)
-visible = false
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=336503663]
 visible = false
@@ -91,3 +91,9 @@ shape = SubResource("SphereShape3D_iqsyy")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1620480184]
 replication_config = SubResource("SceneReplicationConfig_iqsyy")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=339844310]
+stream = ExtResource("7_bvrwk")
+volume_db = 5.0
+autoplay = true
+max_distance = 3.0

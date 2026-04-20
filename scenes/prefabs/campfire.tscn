@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cyofbwcwa72d6" path="res://assets/environment/kenney_nature-kit/Models/GLTF format/pot_large.glb" id="2_ulp66"]
 [ext_resource type="PackedScene" uid="uid://dlff4w1xli64f" path="res://assets/environment/kenney_nature-kit/Models/GLTF format/campfire_logs.glb" id="3_4wpew"]
 [ext_resource type="PackedScene" uid="uid://bw11jnkygj800" path="res://scenes/interactable.tscn" id="4_l5cdx"]
+[ext_resource type="AudioStream" uid="uid://c301jdb3nxfu4" path="res://assets/sfx/soundreality-fire-crackling-sound-499636.mp3" id="6_4wpew"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p3rq1"]
 size = Vector3(0.5635964, 0.2, 0.48808885)
@@ -25,7 +26,7 @@ visible = false
 
 [node name="pot_large2" parent="." unique_id=1895774153 instance=ExtResource("2_ulp66")]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="pot_large2/pot_large" parent_id_path=PackedInt32Array(1895774153, 1823733800) index="0" unique_id=196839403]
+[node name="StaticBody3D" type="StaticBody3D" parent="pot_large2/pot_large" parent_id_path=PackedInt32Array(1895774153, 1707550948) index="0" unique_id=196839403]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="pot_large2/pot_large/StaticBody3D" unique_id=847940557]
@@ -43,5 +44,12 @@ shape = SubResource("SphereShape3D_j2xvu")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1234405723]
 replication_config = SubResource("SceneReplicationConfig_ulp66")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=649885042]
+stream = ExtResource("6_4wpew")
+volume_db = 5.0
+autoplay = true
+max_distance = 3.0
+parameters/looping = true
 
 [editable path="pot_large2"]

@@ -1,14 +1,22 @@
 [gd_scene format=3 uid="uid://txij12gv45om"]
 
 [ext_resource type="PackedScene" uid="uid://cinlpmufs2nna" path="res://assets/environment/kenney_nature-kit/Models/GLTF format/ground_grass.glb" id="1_66f3t"]
+[ext_resource type="Script" uid="uid://ya30om66l0mp" path="res://scripts/ground.gd" id="2_k0oar"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k0oar"]
 size = Vector3(1, 0.001, 1)
 
-[node name="ground_grass2" unique_id=927985173 instance=ExtResource("1_66f3t")]
+[node name="ground_grass2" unique_id=927985173 groups=["Grass"] instance=ExtResource("1_66f3t")]
+script = ExtResource("2_k0oar")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="ground_grass" parent_id_path=PackedInt32Array(1920650892) index="0" unique_id=405261318]
+[node name="GroundGrass" type="StaticBody3D" parent="ground_grass" parent_id_path=PackedInt32Array(141995900) index="0" unique_id=405261318]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5e-06, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ground_grass/StaticBody3D" index="0" unique_id=991430409]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground_grass/GroundGrass" index="0" unique_id=991430409]
+shape = SubResource("BoxShape3D_k0oar")
+
+[node name="grass" type="Area3D" parent="ground_grass" parent_id_path=PackedInt32Array(141995900) index="1" unique_id=1357707550]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="ground_grass/grass" index="0" unique_id=1448855515]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.9993396e-06, 0)
 shape = SubResource("BoxShape3D_k0oar")

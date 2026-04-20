@@ -10,15 +10,28 @@ extends Node
 
 const PLAYER := preload("res://scenes/player.tscn")
 
-var peer := ENetMultiplayerPeer.new()
+@onready var join_code: LineEdit = $Menu/Control/VBoxContainer/JoinCode
+@onready var host_oid_label: Label = $PauseMenu/HBoxContainer/host_oid
+
+#var voices = DisplayServer.tts_get_voices_for_language("en")
+#var voice_id = voices[0]
 
 func _ready() -> void:
+	Multiplayer.config_noray()
+	Multiplayer.hosted.connect(_on_host_connected)
+	Multiplayer.joined.connect(_on_client_connected)
 	$MultiplayerSpawner.spawn_function = add_player
 	
 func _on_host_pressed() -> void:
-	peer.create_server(25565)
-	multiplayer.multiplayer_peer = peer
-		
+	#var peer := ENetMultiplayerPeer.new()
+	#peer.create_server(25565)
+	#multiplayer.multiplayer_peer = peer
+	
+	Multiplayer.host()
+
+func _on_host_connected() -> void:
+	host_oid_label.text = Multiplayer.external_oid
+	
 	multiplayer.peer_connected.connect(
 		func(pid): 
 			print("Peer ID: " + str(pid) + " has joined the game.")
@@ -27,12 +40,25 @@ func _on_host_pressed() -> void:
 	
 	$MultiplayerSpawner.spawn(multiplayer.get_unique_id())
 	
+	#DisplayServer.tts_speak("ni howdy", voice_id)
+	
 	menu.hide()
 
 func _on_join_pressed() -> void:
-	peer.create_client("localhost", 25565)
-	multiplayer.multiplayer_peer = peer
+	#var peer := ENetMultiplayerPeer.new()
+	#peer.create_client("localhost", 25565)
+	#multiplayer.multiplayer_peer = peer
+	
+	Multiplayer.join(join_code.text)
+
+func _on_client_connected() -> void:
+	host_oid_label.text = Multiplayer.external_oid
+	#DisplayServer.tts_speak("ni howdy", voice_id)
 	menu.hide()
+
+func _on_copy_oid_pressed() -> void:
+	print(Multiplayer.external_oid)
+	DisplayServer.clipboard_set(Multiplayer.external_oid)
 
 func add_player(pid) -> Player:
 	var player := PLAYER.instantiate()

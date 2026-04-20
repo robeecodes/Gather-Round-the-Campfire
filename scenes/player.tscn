@@ -13,7 +13,10 @@
 [ext_resource type="Texture2D" uid="uid://bdg48m6l86q8i" path="res://assets/player/3DGodotRobot_GodotPalette.png" id="7_ur7pv"]
 [ext_resource type="PackedScene" uid="uid://bowg0icq12vlr" path="res://assets/player/Hats/mushroom.tscn" id="8_jej6c"]
 [ext_resource type="PackedScene" uid="uid://dou34d673yh60" path="res://assets/player/Hats/propeller_hat.tscn" id="9_f1ej7"]
+[ext_resource type="AudioStream" uid="uid://dnvws6xbb53wl" path="res://assets/sfx/footsteps/step-1.mp3" id="10_qfm1y"]
 [ext_resource type="PackedScene" uid="uid://cjjne6lcfle2w" path="res://scenes/interacting_component.tscn" id="10_y4r1p"]
+[ext_resource type="AudioStream" uid="uid://c0650q054uygf" path="res://assets/sfx/footsteps/step-2.mp3" id="11_fulsm"]
+[ext_resource type="AudioStream" uid="uid://cnger0net1lpu" path="res://assets/sfx/footsteps/step-3.mp3" id="12_4r5pv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3vyb7"]
 radius = 0.33203125
@@ -151,6 +154,8 @@ blend_shape_mode = 0
 resource_local_to_scene = true
 albedo_texture = ExtResource("2_smehm")
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_a38lo"]
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_dqkch"]
 radius = 0.1
 
@@ -188,6 +193,7 @@ hats = Dictionary[int, PackedScene]({
 3: ExtResource("8_jej6c"),
 4: ExtResource("9_f1ej7")
 })
+footstep_grass_sounds = Array[AudioStreamMP3]([ExtResource("10_qfm1y"), ExtResource("11_fulsm"), ExtResource("12_4r5pv")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=522642800]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.26344445, 0)
@@ -196,61 +202,86 @@ shape = SubResource("CapsuleShape3D_3vyb7")
 [node name="3DGodotRobot" parent="." unique_id=243332868 instance=ExtResource("1_3vyb7")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.0010868758, 0)
 
-[node name="Skeleton3D" parent="3DGodotRobot/RobotArmature" parent_id_path=PackedInt32Array(243332868, 66045131) index="0" unique_id=1670351669]
-bones/0/position = Vector3(-3.5255984e-16, 0.86128783, 0.029855084)
-bones/0/rotation = Quaternion(0.014909218, 1.1919608e-07, 1.7773132e-09, 0.9998889)
-bones/1/rotation = Quaternion(0.029448897, -1.52228e-14, 7.0211668e-09, 0.9995664)
-bones/4/position = Vector3(-3.6572172e-16, 0.15150139, -0.011741015)
-bones/4/rotation = Quaternion(0.00540027, -1.1920753e-07, -6.4376265e-10, 0.99998546)
-bones/7/position = Vector3(7.444091e-08, 0.5406087, 0.3122278)
-bones/8/position = Vector3(9.97907e-08, 0.06115723, 0.4185525)
-bones/8/rotation = Quaternion(0.003939635, 1.1920836e-07, -4.696411e-10, 0.99999225)
+[node name="Skeleton3D" parent="3DGodotRobot/RobotArmature" parent_id_path=PackedInt32Array(243332868, 1019322864) index="0" unique_id=1363823747]
+bones/0/position = Vector3(6.474662e-10, 0.86128783, 0.029855084)
+bones/0/rotation = Quaternion(0.014909217, 1.1919607e-07, 1.7773131e-09, 0.99988884)
+bones/1/rotation = Quaternion(0.027944017, 0.31502873, -0.018694492, 0.9484865)
+bones/4/position = Vector3(3.8677803e-09, 0.15150139, -0.011741015)
+bones/4/rotation = Quaternion(0.08131089, -0.31806064, 0.016164348, 0.9444388)
+bones/5/rotation = Quaternion(0.008212386, -2.466766e-10, -1.929252e-09, 0.99996626)
+bones/7/position = Vector3(7.490657e-08, 0.54060847, 0.3122278)
+bones/7/rotation = Quaternion(0.00393964, 1.19189565e-07, -4.7306414e-10, 0.99999225)
+bones/8/position = Vector3(9.960407e-08, 0.085749224, 0.4187463)
+bones/8/rotation = Quaternion(0.003939639, 1.1918951e-07, -4.5851045e-10, 0.99999225)
 bones/9/position = Vector3(0.26732144, 0.0764982, -0.028223984)
-bones/9/rotation = Quaternion(-0.5230665, -0.4578019, -0.52192616, 0.49438047)
-bones/10/position = Vector3(0.009435951, 0.22304288, -8.365756e-05)
-bones/10/rotation = Quaternion(-0.35644147, 0.6178471, -0.43310672, 0.5510291)
-bones/11/rotation = Quaternion(-0.017577726, -0.09135095, 0.027113229, 0.9952944)
-bones/12/rotation = Quaternion(0.020934897, 0.017021656, -0.017671391, 0.9994797)
-bones/13/position = Vector3(-0.26732144, 0.0764982, -0.028223984)
-bones/13/rotation = Quaternion(-0.5230665, 0.4578019, 0.52192616, 0.49438047)
-bones/14/position = Vector3(-0.009435951, 0.22304288, -8.365756e-05)
-bones/14/rotation = Quaternion(-0.35644147, -0.6178471, 0.43310672, 0.5510291)
-bones/16/rotation = Quaternion(0.020934895, -0.017021654, 0.017671384, 0.9994797)
+bones/9/rotation = Quaternion(0.10058355, 0.12409979, -0.7066987, 0.6892454)
+bones/10/position = Vector3(0.00943596, 0.223043, -8.3778796e-05)
+bones/10/rotation = Quaternion(-0.18810356, 0.7194769, -0.2086971, 0.6351502)
+bones/11/rotation = Quaternion(0.47090578, -0.066461444, 0.068286166, 0.8770221)
+bones/12/rotation = Quaternion(0.020934895, 0.017021658, -0.017671373, 0.9994797)
+bones/13/position = Vector3(-0.26732144, 0.0764982, -0.02822399)
+bones/13/rotation = Quaternion(-0.64165753, 0.6178258, 0.31275475, 0.32977468)
+bones/14/position = Vector3(-0.009435973, 0.223043, -8.366026e-05)
+bones/14/rotation = Quaternion(0.019411083, -0.7434064, 0.023822216, 0.66813374)
+bones/15/rotation = Quaternion(0.5653578, 0.05846987, -0.0752423, 0.8193231)
+bones/16/rotation = Quaternion(0.020934902, -0.017021645, 0.017671384, 0.9994797)
 bones/17/position = Vector3(0.276084, 0.06599521, -0.0034686895)
-bones/17/rotation = Quaternion(0.9914149, 0.020339562, -0.007486249, 0.12894535)
-bones/18/rotation = Quaternion(0.24962775, 0.008717708, 0.024974002, 0.96798056)
-bones/19/rotation = Quaternion(-0.60871387, 0.00331542, -0.004791212, 0.79336846)
+bones/17/rotation = Quaternion(0.6902454, 0.011143978, -0.018550321, 0.72325176)
+bones/18/rotation = Quaternion(0.38629487, 0.0105744, 0.023121363, 0.9220249)
+bones/19/rotation = Quaternion(-0.38435718, 0.0019676164, -0.0054841195, 0.92316616)
 bones/21/position = Vector3(-0.27608398, 0.06599527, -0.0034688246)
-bones/21/rotation = Quaternion(0.9914149, -0.020339629, 0.007486257, 0.12894535)
-bones/22/rotation = Quaternion(0.24962778, -0.008717655, -0.024974115, 0.96798056)
-bones/23/rotation = Quaternion(-0.60871387, -0.0033154436, 0.0047912565, 0.79336846)
-bones/24/rotation = Quaternion(6.345524e-08, 0.9807643, -0.19519578, -1.8277877e-06)
+bones/21/rotation = Quaternion(0.93619317, -0.021490235, -0.0029385625, -0.3508161)
+bones/22/rotation = Quaternion(0.38197923, -0.010525163, -0.023185031, 0.9238201)
+bones/23/rotation = Quaternion(-0.23430176, -0.0011092827, 0.005739918, 0.9721464)
+bones/24/rotation = Quaternion(6.345563e-08, 0.9807643, -0.19519578, -1.8277876e-06)
 
-[node name="Bottom" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="0" unique_id=1364180486]
+[node name="Bottom" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="0" unique_id=1302797051]
 mesh = SubResource("ArrayMesh_f1ej7")
 surface_material_override/0 = SubResource("StandardMaterial3D_oprun")
 
-[node name="Chest" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="1" unique_id=184411318]
+[node name="Chest" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="1" unique_id=344060434]
 mesh = SubResource("ArrayMesh_a8ls1")
 surface_material_override/0 = SubResource("StandardMaterial3D_qfm1y")
 
-[node name="Face" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="2" unique_id=1871698800]
+[node name="Face" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="2" unique_id=1024536285]
 mesh = SubResource("ArrayMesh_fulsm")
 surface_material_override/0 = SubResource("StandardMaterial3D_4r5pv")
 
-[node name="Llimbs and head" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="3" unique_id=1235072853]
+[node name="Llimbs and head" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="3" unique_id=350100985]
 mesh = SubResource("ArrayMesh_60mlk")
 surface_material_override/0 = SubResource("StandardMaterial3D_i4ail")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="4" unique_id=727561557]
-transform = Transform3D(1, 1.0214052e-14, -2.384185e-07, 1.8785287e-09, 0.9999688, 0.007879127, 2.3841115e-07, -0.00787914, 0.9999689, 1.7817827e-15, 1.7220589, 0.029791467)
+transform = Transform3D(0.9999815, -0.0009287554, -0.0060193357, 1.6599788e-08, 0.9883052, -0.15248823, 0.006090492, 0.1524854, 0.98828685, -0.0028519526, 1.7208068, 0.05296491)
 bone_name = "Head"
 bone_idx = 5
 
 [node name="Hat_Node" type="Node3D" parent="3DGodotRobot/RobotArmature/Skeleton3D/BoneAttachment3D" unique_id=1536953400]
 transform = Transform3D(5.7623057, 1.0824623e-08, 1.3737977e-06, 7.302002e-15, 5.7621274, -0.045401942, -1.3738406e-06, 0.04540202, 5.762127, -5.7488454e-09, 0.72087073, -0.024112377)
 
-[node name="AnimationPlayer" parent="3DGodotRobot" index="1" unique_id=1939152961]
+[node name="Foot_Collider_A" type="BoneAttachment3D" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="5" unique_id=1056706311]
+transform = Transform3D(1.0001084, -2.2957829e-05, 3.5395264e-05, 3.45374e-05, 0.012623519, -0.99997693, 1.338264e-05, 0.99992096, 0.012624502, 0.28801706, 0.6992396, 0.6413595)
+bone_name = "foot.L"
+bone_idx = 19
+
+[node name="Area3D" type="Area3D" parent="3DGodotRobot/RobotArmature/Skeleton3D/Foot_Collider_A" unique_id=1429566542]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="3DGodotRobot/RobotArmature/Skeleton3D/Foot_Collider_A/Area3D" unique_id=1984620216]
+transform = Transform3D(1, -1.0913936e-11, 1.4551915e-11, 7.275958e-12, 1, 0, 0, 0, 1.0000001, 0, 0, 0)
+shape = SubResource("SphereShape3D_a38lo")
+
+[node name="Foot_Collider_B" type="BoneAttachment3D" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="6" unique_id=845870866]
+transform = Transform3D(1.0001079, -6.203442e-05, -1.1919939e-05, -2.740568e-05, -0.49077272, 0.871318, -6.5347966e-05, -0.8712944, -0.49082303, -0.28805122, 0.6392689, -0.56026703)
+bone_name = "foot.R"
+bone_idx = 23
+
+[node name="Area3D" type="Area3D" parent="3DGodotRobot/RobotArmature/Skeleton3D/Foot_Collider_B" unique_id=677912195]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="3DGodotRobot/RobotArmature/Skeleton3D/Foot_Collider_B/Area3D" unique_id=659419247]
+transform = Transform3D(1, -1.0913936e-11, 1.4551915e-11, 7.275958e-12, 1, 0, 0, 0, 1.0000001, 0, 0, 0)
+shape = SubResource("SphereShape3D_a38lo")
+
+[node name="AnimationPlayer" parent="3DGodotRobot" index="1" unique_id=390068103]
 process_mode = 3
 
 [node name="SpringArmPivot" type="Node3D" parent="." unique_id=133672197]
@@ -280,6 +311,9 @@ replication_config = SubResource("SceneReplicationConfig_dqkch")
 [node name="HatSpawner" type="MultiplayerSpawner" parent="." unique_id=165715141]
 _spawnable_scenes = PackedStringArray("uid://ejfao5cpl3c6", "uid://crn8lmubatadk", "uid://bowg0icq12vlr", "uid://dou34d673yh60")
 spawn_path = NodePath("../3DGodotRobot/RobotArmature/Skeleton3D/BoneAttachment3D/Hat_Node")
+
+[node name="FootstepPlayer" type="AudioStreamPlayer3D" parent="." unique_id=230823709]
+volume_db = -6.0
 
 [editable path="3DGodotRobot"]
 [editable path="InteractingComponent"]

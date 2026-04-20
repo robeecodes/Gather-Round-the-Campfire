@@ -38,6 +38,18 @@ const JUMP_VELOCITY = 4.5
 	adding_words = false
 }
 
+# Foot colliders for audio
+@onready var foot_a: Area3D = $"3DGodotRobot/RobotArmature/Skeleton3D/Foot_Collider_A/Area3D"
+@onready var foot_b: Area3D = $"3DGodotRobot/RobotArmature/Skeleton3D/Foot_Collider_B/Area3D"
+
+var feet_touching_ground = false
+
+@export_category("SFX")
+@export var footstep_grass_sounds: Array[AudioStreamMP3]
+
+@onready var footstep_player: AudioStreamPlayer3D = $FootstepPlayer
+
+
 func _enter_tree() -> void:
 	set_multiplayer_authority(int(str(name)))
 
@@ -46,9 +58,40 @@ func _ready() -> void:
 	if is_multiplayer_authority():
 		camera.make_current()
 
+func _process(_delta):
+	var touching_areas = foot_a.get_overlapping_areas() + foot_b.get_overlapping_areas()
+	var is_touching = foot_a.get_overlapping_areas().size() > 0 or foot_b.get_overlapping_areas().size() > 0
+	
+	if is_touching and not feet_touching_ground:
+		play_footstep_sound(_get_surface_type(touching_areas))
+		feet_touching_ground = true
+	elif not is_touching:
+		feet_touching_ground = false
+
+func _get_surface_type(areas: Array) -> String:
+	for area in areas:
+		if area.name == "grass":
+			return "grass"
+			
+	return "default"
+
+func play_footstep_sound(surface_type: String) -> void:
+	var sounds: Array[AudioStreamMP3] = []
+	
+	if surface_type == "grass":
+		sounds = footstep_grass_sounds
+	
+	if sounds.is_empty():
+		return
+	
+	var random_sound = sounds[randi() % sounds.size()]
+	footstep_player.stream = random_sound
+	footstep_player.play()
+
 func _physics_process(delta: float) -> void:	
 	if !is_multiplayer_authority():
 		return
+		
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -78,6 +121,10 @@ func _physics_process(delta: float) -> void:
 		animation_player.play("Idle")
 
 	move_and_slide()
+	
+	var collision = move_and_collide(velocity * delta)
+	if collision:
+		velocity = velocity.slide(collision.get_normal())
 
 func sit() -> void:
 	set_physics_process(false)

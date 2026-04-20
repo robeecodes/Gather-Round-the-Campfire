@@ -14,6 +14,12 @@ extends Node
 @export var logs: Array[SittingLog]
 @onready var campfire: Node3D = $"../Level/Campfire"
 
+@export var line: Label3D
+@export var story_status : int = 0
+
+var voices = DisplayServer.tts_get_voices_for_language("en")
+var voice_id = voices[0]
+
 var telling_story = false
 var adding_words = false
 
@@ -111,7 +117,7 @@ func _tell_story():
 	word_entry_menu.hide()
 	
 	player.player_info.adding_words = false
-	_sync_player_adding_words.rpc(player, false)
+	#_sync_player_adding_words.rpc(player, false)
 		
 	if PlayerNetwork.players.values().all(func(p): return !p.player_info.adding_words):
 		ready_to_tell_story.emit()
@@ -133,6 +139,21 @@ func _campfire_telling_story():
 	StoryManager.chosen_story.words = StoryManager.words
 	StoryManager.update_story()
 	
-	while telling_story:
-		campfire.progress_story()
-		await get_tree().create_timer(4).timeout
+	progress_story.rpc()
+		
+@rpc("call_local", "any_peer", "reliable")
+func progress_story() -> void:
+	if story_status < len(StoryManager.chosen_story.story):
+		var current_line := StoryManager.chosen_story.story[story_status]
+		line.text = current_line
+		
+		story_status += 1
+		
+		DisplayServer.tts_speak(current_line, voice_id)
+		DisplayServer.tts_set_utterance_callback(DisplayServer.TTS_UTTERANCE_ENDED, func(_id: int): progress_story.rpc())
+		
+	else:
+		line.text = ""
+		_on_campfire_story_complete()
+		story_status = 0
+		return

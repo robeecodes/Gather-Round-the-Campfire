@@ -23,10 +23,19 @@ general/text_to_speech=true
 
 PlayerNetwork="*uid://nautxlrwoguv"
 StoryManager="*uid://pw71y37tsd1a"
+Noray="*uid://gu4bv4tgms3x"
+PacketHandshake="*uid://tt3j25a05n7c"
+Multiplayer="*uid://b13b0fh0v3x33"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ridiculous_coding/plugin.cfg")
+enabled=PackedStringArray("res://addons/netfox.internals/plugin.cfg", "res://addons/netfox.noray/plugin.cfg", "res://addons/ridiculous_coding/plugin.cfg")
+
+[global_group]
+
+grass=""
+wood=""
+water=""
 
 [input]
 
