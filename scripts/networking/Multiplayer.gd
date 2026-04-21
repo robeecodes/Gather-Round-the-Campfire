@@ -3,12 +3,15 @@ extends Node
 signal noray_connected
 signal hosted
 signal joined
+signal join_failed
  
 const NORAY_ADDRESS = "tomfol.io"
 const NORAY_PORT = 8890
  
 var is_host = false
 var external_oid := ""
+
+var err := OK
  
 func config_noray():
 	Noray.on_connect_to_host.connect(on_noray_connected)
@@ -26,28 +29,41 @@ func on_noray_connected():
  
 	noray_connected.emit()
  
-func host():
+func host(mode: String):
 	print("Hosting...")
- 
-	var peer = ENetMultiplayerPeer.new()
-	peer.create_server(Noray.local_port)
-	multiplayer.multiplayer_peer = peer
-	
-	external_oid = Noray.oid
-	print(external_oid)
+	if mode == "noray":
+		var peer = ENetMultiplayerPeer.new()
+		peer.create_server(Noray.local_port)
+		multiplayer.multiplayer_peer = peer
+		
+		external_oid = Noray.oid
+		print(external_oid)
+	else:
+		var peer := ENetMultiplayerPeer.new()
+		peer.create_server(25565)
+		multiplayer.multiplayer_peer = peer
 	
 	is_host = true
  
 	hosted.emit()
  
-func join(oid):
-	Noray.connect_nat(oid)
-	external_oid = oid
- 
-	joined.emit()
+func join(mode, oid):
+	if mode == "noray":
+		Noray.connect_nat(oid)
+		external_oid = oid
+	 
+		if err == OK:
+			joined.emit()
+		else:
+			join_failed.emit()
+	else:
+		var peer := ENetMultiplayerPeer.new()
+		peer.create_client("localhost", 25565)
+		multiplayer.multiplayer_peer = peer
+		joined.emit()
  
 func handle_nat_connection(address,port):
-	var err = await connect_to_server(address, port)
+	err = await connect_to_server(address, port)
  
 	if err != OK && !is_host:
 		print("NAT failed, using relay")
@@ -60,7 +76,7 @@ func handle_relay_connection(address,port):
 	return await connect_to_server(address,port)
  
 func connect_to_server(address,port):
-	var err = OK
+	err = OK
  
 	if !is_host:
 		var udp = PacketPeerUDP.new()

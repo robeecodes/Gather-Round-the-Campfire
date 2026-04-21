@@ -84,7 +84,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5041504, -0.17506182)
 shape = SubResource("CylinderShape3D_iqsyy")
 
 [node name="Interactable" parent="." unique_id=1314814483 instance=ExtResource("5_24xod")]
+visible = false
 interact_name = "Press 'E' to light fire"
+is_interactable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable" unique_id=1734477497]
 shape = SubResource("SphereShape3D_iqsyy")

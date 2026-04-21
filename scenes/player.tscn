@@ -17,6 +17,9 @@
 [ext_resource type="PackedScene" uid="uid://cjjne6lcfle2w" path="res://scenes/interacting_component.tscn" id="10_y4r1p"]
 [ext_resource type="AudioStream" uid="uid://c0650q054uygf" path="res://assets/sfx/footsteps/step-2.mp3" id="11_fulsm"]
 [ext_resource type="AudioStream" uid="uid://cnger0net1lpu" path="res://assets/sfx/footsteps/step-3.mp3" id="12_4r5pv"]
+[ext_resource type="Script" uid="uid://drh2xtcdn5pcw" path="res://scripts/voip_controller.gd" id="13_fulsm"]
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_fulsm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3vyb7"]
 radius = 0.33203125
@@ -28,7 +31,7 @@ cull_mode = 2
 albedo_texture = ExtResource("7_ur7pv")
 roughness = 0.4
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_f1ej7"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_fulsm"]
 resource_local_to_scene = true
 resource_name = "3DGodotRobot_Cube_005"
 _surfaces = [{
@@ -49,7 +52,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oprun"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4r5pv"]
 resource_local_to_scene = true
 albedo_texture = ExtResource("2_smehm")
 
@@ -59,7 +62,7 @@ cull_mode = 2
 albedo_texture = ExtResource("7_ur7pv")
 roughness = 0.4
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_a8ls1"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_60mlk"]
 resource_local_to_scene = true
 resource_name = "3DGodotRobot_Cube_004"
 _surfaces = [{
@@ -80,7 +83,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qfm1y"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i4ail"]
 resource_local_to_scene = true
 albedo_texture = ExtResource("2_smehm")
 
@@ -90,7 +93,7 @@ cull_mode = 2
 albedo_color = Color(0, 0, 0, 1)
 roughness = 0.5
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_fulsm"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_a38lo"]
 resource_local_to_scene = true
 resource_name = "3DGodotRobot_Cube_003"
 _surfaces = [{
@@ -125,11 +128,11 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4r5pv"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ni07"]
 resource_local_to_scene = true
 albedo_texture = ExtResource("2_smehm")
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_60mlk"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_l71n6"]
 resource_local_to_scene = true
 resource_name = "3DGodotRobot_Cube"
 _surfaces = [{
@@ -150,7 +153,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i4ail"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ke2ow"]
 resource_local_to_scene = true
 albedo_texture = ExtResource("2_smehm")
 
@@ -195,6 +198,15 @@ hats = Dictionary[int, PackedScene]({
 })
 footstep_grass_sounds = Array[AudioStreamMP3]([ExtResource("10_qfm1y"), ExtResource("11_fulsm"), ExtResource("12_4r5pv")])
 
+[node name="VOIPController" type="Node" parent="." unique_id=1548574786]
+script = ExtResource("13_fulsm")
+
+[node name="Input" type="AudioStreamPlayer" parent="VOIPController" unique_id=251917379]
+
+[node name="Output" type="AudioStreamPlayer3D" parent="VOIPController" unique_id=91626190]
+stream = SubResource("AudioStreamGenerator_fulsm")
+autoplay = true
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=522642800]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.26344445, 0)
 shape = SubResource("CapsuleShape3D_3vyb7")
@@ -236,20 +248,20 @@ bones/23/rotation = Quaternion(-0.23430176, -0.0011092827, 0.005739918, 0.972146
 bones/24/rotation = Quaternion(6.345563e-08, 0.9807643, -0.19519578, -1.8277876e-06)
 
 [node name="Bottom" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="0" unique_id=1302797051]
-mesh = SubResource("ArrayMesh_f1ej7")
-surface_material_override/0 = SubResource("StandardMaterial3D_oprun")
-
-[node name="Chest" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="1" unique_id=344060434]
-mesh = SubResource("ArrayMesh_a8ls1")
-surface_material_override/0 = SubResource("StandardMaterial3D_qfm1y")
-
-[node name="Face" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="2" unique_id=1024536285]
 mesh = SubResource("ArrayMesh_fulsm")
 surface_material_override/0 = SubResource("StandardMaterial3D_4r5pv")
 
-[node name="Llimbs and head" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="3" unique_id=350100985]
+[node name="Chest" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="1" unique_id=344060434]
 mesh = SubResource("ArrayMesh_60mlk")
 surface_material_override/0 = SubResource("StandardMaterial3D_i4ail")
+
+[node name="Face" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="2" unique_id=1024536285]
+mesh = SubResource("ArrayMesh_a38lo")
+surface_material_override/0 = SubResource("StandardMaterial3D_4ni07")
+
+[node name="Llimbs and head" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="3" unique_id=350100985]
+mesh = SubResource("ArrayMesh_l71n6")
+surface_material_override/0 = SubResource("StandardMaterial3D_ke2ow")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="3DGodotRobot/RobotArmature/Skeleton3D" index="4" unique_id=727561557]
 transform = Transform3D(0.9999815, -0.0009287554, -0.0060193357, 1.6599788e-08, 0.9883052, -0.15248823, 0.006090492, 0.1524854, 0.98828685, -0.0028519526, 1.7208068, 0.05296491)
@@ -313,7 +325,8 @@ _spawnable_scenes = PackedStringArray("uid://ejfao5cpl3c6", "uid://crn8lmubatadk
 spawn_path = NodePath("../3DGodotRobot/RobotArmature/Skeleton3D/BoneAttachment3D/Hat_Node")
 
 [node name="FootstepPlayer" type="AudioStreamPlayer3D" parent="." unique_id=230823709]
-volume_db = -6.0
+volume_db = -12.0
+autoplay = true
 
 [editable path="3DGodotRobot"]
 [editable path="InteractingComponent"]

@@ -35,7 +35,8 @@ const JUMP_VELOCITY = 4.5
 		hat = Hat_Type.NONE
 	},
 	is_sitting = false,
-	adding_words = false
+	adding_words = false,
+	listening_to_story = false
 }
 
 # Foot colliders for audio
@@ -86,6 +87,7 @@ func play_footstep_sound(surface_type: String) -> void:
 	
 	var random_sound = sounds[randi() % sounds.size()]
 	footstep_player.stream = random_sound
+	footstep_player.volume_db = -12
 	footstep_player.play()
 
 func _physics_process(delta: float) -> void:	
@@ -133,6 +135,7 @@ func sit() -> void:
 func stand() -> void:
 	set_physics_process(true)
 
+## CUSTOMISATION FUNCTIONS
 # SKIN
 @rpc("any_peer", "reliable")
 func set_player_skin(skin_id: int) -> void:

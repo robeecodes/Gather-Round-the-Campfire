@@ -11,26 +11,39 @@ extends Node
 const PLAYER := preload("res://scenes/player.tscn")
 
 @onready var join_code: LineEdit = $Menu/Control/VBoxContainer/JoinCode
-@onready var host_oid_label: Label = $PauseMenu/HBoxContainer/host_oid
+@onready var host_oid_label: Label = $PauseMenu/VSplitContainer/HBoxContainer/host_oid
+@onready var loading_label: Label = $Menu/Control/Loading
+@onready var host_oid_box: HBoxContainer = $PauseMenu/VSplitContainer/HostOIDBox
+@onready var noray_toggle: CheckButton = $Menu/Control/VBoxContainer/NorayToggleContainer/NorayToggle
 
-#var voices = DisplayServer.tts_get_voices_for_language("en")
-#var voice_id = voices[0]
+var mode := "LAN"
 
 func _ready() -> void:
+	# Connect to noray in case noray is activated
 	Multiplayer.config_noray()
 	Multiplayer.hosted.connect(_on_host_connected)
 	Multiplayer.joined.connect(_on_client_connected)
+	Multiplayer.join_failed.connect(_on_client_connect_failed)
+		
 	$MultiplayerSpawner.spawn_function = add_player
-	
+
+func _on_noray_toggle_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		mode = "noray"
+		join_code.show()
+	else:
+		mode = "LAN"
+		join_code.hide()
+
 func _on_host_pressed() -> void:
-	#var peer := ENetMultiplayerPeer.new()
-	#peer.create_server(25565)
-	#multiplayer.multiplayer_peer = peer
-	
-	Multiplayer.host()
+	noray_toggle.disabled = true
+	Multiplayer.host(mode)
 
 func _on_host_connected() -> void:
-	host_oid_label.text = Multiplayer.external_oid
+	if mode == "noray":
+		host_oid_label.text = Multiplayer.external_oid
+	else:
+		host_oid_box.hide()
 	
 	multiplayer.peer_connected.connect(
 		func(pid): 
@@ -39,29 +52,28 @@ func _on_host_connected() -> void:
 	)
 	
 	$MultiplayerSpawner.spawn(multiplayer.get_unique_id())
-	
-	#DisplayServer.tts_speak("ni howdy", voice_id)
-	
+		
 	menu.hide()
 
 func _on_join_pressed() -> void:
-	#var peer := ENetMultiplayerPeer.new()
-	#peer.create_client("localhost", 25565)
-	#multiplayer.multiplayer_peer = peer
-	
-	Multiplayer.join(join_code.text)
+	noray_toggle.disabled = true
+	loading_label.show()
+	Multiplayer.join(mode, join_code.text)
 
 func _on_client_connected() -> void:
-	host_oid_label.text = Multiplayer.external_oid
-	#DisplayServer.tts_speak("ni howdy", voice_id)
+	if mode == "noray":
+		host_oid_label.text = Multiplayer.external_oid
+	else:
+		host_oid_box.hide()
+		
 	menu.hide()
 
-func _on_copy_oid_pressed() -> void:
-	print(Multiplayer.external_oid)
-	DisplayServer.clipboard_set(Multiplayer.external_oid)
+func _on_client_connect_failed() -> void:
+	loading_label.text = "Connection Failed, Please Try Again"
+	menu.show()
 
 func add_player(pid) -> Player:
-	var player := PLAYER.instantiate()
+	var player = PLAYER.instantiate()
 	player.name = str(pid)
 	player.global_position = $Level.get_child(PlayerNetwork.players.size()).global_position
 	
@@ -80,7 +92,6 @@ func _input(event: InputEvent) -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		pause_menu.show()
 		get_tree().paused = true
-		
 
 func _on_resume_pressed() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -90,7 +101,7 @@ func _on_resume_pressed() -> void:
 
 # Update Skin Colour
 func _on_skin_colour_item_selected(index: int) -> void:
-	var player := PlayerNetwork.get_current_player()
+	var player = PlayerNetwork.get_current_player()
 			
 	var skin := skin_colour_option.get_selected_id()
 	
@@ -101,7 +112,7 @@ func _on_skin_colour_item_selected(index: int) -> void:
 
 @rpc("any_peer", "call_local")
 func sync_player_skin(id: int, skin: int):
-	var player := PlayerNetwork.get_player_by_name(str(id))
+	var player = PlayerNetwork.get_player_by_name(str(id))
 	
 	if player:
 		player.player_info.skin_colour = skin
@@ -109,9 +120,13 @@ func sync_player_skin(id: int, skin: int):
 
 # Update Hat
 func _on_hat_item_selected(index: int) -> void:
-	var player := PlayerNetwork.get_current_player()
+	var player = PlayerNetwork.get_current_player()
 	
 	var hat := hat_option.get_selected_id()
 	
 	player.player_info.accessories.hat = hat
 	player.set_player_hat(hat)
+
+
+func _on_copy_oid_pressed() -> void:
+	DisplayServer.clipboard_set(Multiplayer.external_oid)

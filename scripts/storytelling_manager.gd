@@ -20,15 +20,20 @@ extends Node
 var voices = DisplayServer.tts_get_voices_for_language("en")
 var voice_id = voices[0]
 
+@onready var word_request: HTTPRequest = $WordRequest
+
 var telling_story = false
 var adding_words = false
 
 signal all_seated_for_story
 signal ready_to_tell_story
+signal all_completed_story
 
 func _ready() -> void:
 	all_seated_for_story.connect(_when_story_ready.rpc)
 	ready_to_tell_story.connect(_campfire_telling_story.rpc)
+	all_completed_story.connect(_on_all_completed_story.rpc)
+	#DisplayServer.tts_speak("current_linehi", voice_id)
 
 func _on_sitting_log_sit() -> void:
 	_when_sat_on_log()
@@ -51,13 +56,14 @@ func _when_story_ready():
 func _on_exit_pressed() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
-	var player := PlayerNetwork.get_current_player()
+	var player = PlayerNetwork.get_current_player()
 	
 	stories_menu.hide()
 	waiting_menu.show()
 	
 	for log in logs:
 		if log.occupied_by == player.name:
+			player.player_info.is_sitting = false
 			log.stand_up(player)
 			break
 	
@@ -99,14 +105,16 @@ func _tell_story():
 	while idx < StoryManager.words.size():
 		var key = StoryManager.words.keys()[idx]
 		
+		submit_word.text = "random"
 		word_entry.placeholder_text = StoryManager.words[key]
 		
 		await submit_word.pressed
 		
-		if word_entry.text == "":
-			continue
-		
 		var new_word = word_entry.text
+		
+		if new_word == "":
+			new_word = await get_random_word(StoryManager.words[key])
+		
 		word_entry.text = ""
 		
 		StoryManager.words[key] = new_word
@@ -122,6 +130,18 @@ func _tell_story():
 	if PlayerNetwork.players.values().all(func(p): return !p.player_info.adding_words):
 		ready_to_tell_story.emit()
 
+func get_random_word(type: String) -> String:
+	return await word_request.get_word(type)
+
+func _on_word_entry_text_changed(new_text: String) -> void:
+	if new_text == "":
+		submit_word.text = "random"
+	else:
+		submit_word.text = "submit"
+
+@rpc("any_peer", "call_local", "reliable")
+func _on_all_completed_story() -> void:
+	_on_campfire_story_complete()
 
 @rpc("any_peer", "call_local", "reliable")
 func _sync_story_state(idx: int, word: String) -> void:
@@ -151,9 +171,11 @@ func progress_story() -> void:
 		
 		DisplayServer.tts_speak(current_line, voice_id)
 		DisplayServer.tts_set_utterance_callback(DisplayServer.TTS_UTTERANCE_ENDED, func(_id: int): progress_story.rpc())
-		
+
 	else:
 		line.text = ""
-		_on_campfire_story_complete()
 		story_status = 0
+		
+		if PlayerNetwork.players.values().all(func(p): return !p.player_info.listening_to_story):
+			all_completed_story.emit()
 		return

@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dmxi8385tvl46" path="res://assets/environment/kenney_nature-kit/Models/GLTF format/tree_default.glb" id="2_kvpfn"]
 [ext_resource type="Script" uid="uid://ccupjmclp0j3v" path="res://scripts/storytelling_manager.gd" id="2_trtic"]
 [ext_resource type="PackedScene" uid="uid://cbjahs8vccfhy" path="res://assets/environment/kenney_nature-kit/Models/GLTF format/tree_detailed.glb" id="3_dinhu"]
+[ext_resource type="Script" uid="uid://crvlllst074nu" path="res://scripts/api/word_request.gd" id="3_qouja"]
 [ext_resource type="PackedScene" uid="uid://b58bx3kih4y4f" path="res://assets/environment/kenney_nature-kit/Models/GLTF format/tree_fat.glb" id="4_kvuet"]
 [ext_resource type="Texture2D" uid="uid://dffy6b8n6lu4d" path="res://assets/environment/Skyboxes/PurplyBlueSky.png" id="4_trtic"]
 [ext_resource type="PackedScene" uid="uid://bi3a3dswpjb1c" path="res://assets/environment/kenney_nature-kit/Models/GLTF format/tree_oak.glb" id="5_trtic"]
@@ -37,9 +38,15 @@ stream_0 = ExtResource("26_sww3w")
 stream_1 = ExtResource("27_suyxu")
 stream_2 = ExtResource("28_sgl2t")
 
+[sub_resource type="SystemFont" id="SystemFont_sgl2t"]
+
+[sub_resource type="SystemFont" id="SystemFont_wljb1"]
+
 [sub_resource type="LabelSettings" id="LabelSettings_dinhu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kvuet"]
+
+[sub_resource type="SystemFont" id="SystemFont_qouja"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_trtic"]
 
@@ -290,6 +297,9 @@ script = ExtResource("2_trtic")
 logs = [NodePath("../Level/SittingLog"), NodePath("../Level/SittingLog2")]
 line = NodePath("../Level/Campfire/Line")
 
+[node name="WordRequest" type="HTTPRequest" parent="StorytellingManager" unique_id=2063832879]
+script = ExtResource("3_qouja")
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2094399633]
 stream = SubResource("AudioStreamPlaylist_qouja")
 volume_db = -3.0
@@ -311,17 +321,53 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("13_trtic")
 
-[node name="Title" type="Label" parent="Menu/Control" unique_id=1021550928]
+[node name="Title" type="Label" parent="Menu/Control" unique_id=1384279040]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.022569444
 anchor_top = 0.0030864198
 anchor_right = 0.9496528
 anchor_bottom = 0.15895061
+offset_left = 24.104164
+offset_top = 0.31172848
+offset_right = 24.104126
+offset_bottom = 0.31172943
 grow_horizontal = 2
 text = "Gather Round the Campfire"
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="Loading" type="Label" parent="Menu/Control" unique_id=1021550928]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -560.5
+offset_top = -68.0
+offset_right = 560.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Loading..."
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="ColorRect" type="ColorRect" parent="Menu/Control" unique_id=1045265446]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -234.5
+offset_top = -135.0
+offset_right = 234.5
+offset_bottom = 135.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.627451)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu/Control" unique_id=705900329]
 layout_mode = 1
@@ -330,10 +376,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -106.5
-offset_top = -39.0
-offset_right = 106.5
-offset_bottom = 39.0
+offset_left = -189.5
+offset_top = -80.0
+offset_right = 189.5
+offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -342,7 +388,9 @@ layout_mode = 2
 text = "Host"
 
 [node name="JoinCode" type="LineEdit" parent="Menu/Control/VBoxContainer" unique_id=619216140]
+visible = false
 layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_sgl2t")
 theme_override_font_sizes/font_size = 26
 placeholder_text = "Enter Join Code"
 
@@ -350,9 +398,29 @@ placeholder_text = "Enter Join Code"
 layout_mode = 2
 text = "Join"
 
+[node name="NorayToggleContainer" type="HBoxContainer" parent="Menu/Control/VBoxContainer" unique_id=412044659]
+layout_mode = 2
+
+[node name="NorayToggle" type="CheckButton" parent="Menu/Control/VBoxContainer/NorayToggleContainer" unique_id=87079355]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menu/Control/VBoxContainer/NorayToggleContainer" unique_id=1541942994]
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_wljb1")
+theme_override_font_sizes/font_size = 24
+text = "Enable Noray (Experimental)"
+
 [node name="PauseMenu" type="CanvasLayer" parent="." unique_id=952143391]
 visible = false
 script = ExtResource("8_sgl2t")
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu" unique_id=175514433]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 339.935
+grow_vertical = 2
+size_flags_vertical = 3
+color = Color(0, 0, 0, 0.29411766)
 
 [node name="VSplitContainer" type="VSplitContainer" parent="PauseMenu" unique_id=1850436372]
 process_mode = 2
@@ -361,17 +429,20 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -94.5
-offset_top = -80.0
-offset_right = 94.5
-offset_bottom = 80.0
+offset_left = -553.0
+offset_top = -130.5
+offset_right = -277.0
+offset_bottom = 130.5
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 0
 theme = ExtResource("13_trtic")
-split_offsets = PackedInt32Array(0, 0, 0, 0)
+split_offsets = PackedInt32Array(59, 89, 160, 190, 261)
+split_offset = 59
 
 [node name="Resume" type="Button" parent="PauseMenu/VSplitContainer" unique_id=1620451490]
 layout_mode = 2
+mouse_default_cursor_shape = 2
 text = "Resume"
 
 [node name="CharacterColourLabel" type="Label" parent="PauseMenu/VSplitContainer" unique_id=1418060253]
@@ -412,22 +483,23 @@ popup/item_3/id = 3
 popup/item_4/text = "Propellor"
 popup/item_4/id = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenu" unique_id=1709761700]
-offset_left = 21.0
-offset_top = 15.0
-offset_right = 296.0
-offset_bottom = 66.0
+[node name="HostOIDBox" type="HBoxContainer" parent="PauseMenu/VSplitContainer" unique_id=1709761700]
+layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="host_oid" type="Label" parent="PauseMenu/HBoxContainer" unique_id=1036114874]
+[node name="host_oid" type="Label" parent="PauseMenu/VSplitContainer/HostOIDBox" unique_id=1036114874]
 layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_qouja")
+theme_override_font_sizes/font_size = 18
 text = "This will contain the oid"
 
-[node name="VSeparator" type="VSeparator" parent="PauseMenu/HBoxContainer" unique_id=697552207]
+[node name="VSeparator" type="VSeparator" parent="PauseMenu/VSplitContainer/HostOIDBox" unique_id=697552207]
 layout_mode = 2
 
-[node name="copy_oid" type="Button" parent="PauseMenu/HBoxContainer" unique_id=1386576119]
+[node name="copy_oid" type="Button" parent="PauseMenu/VSplitContainer/HostOIDBox" unique_id=1386576119]
 layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 18
 text = "Copy OID"
 
 [node name="StoriesMenu" type="CanvasLayer" parent="." unique_id=1434153834]
@@ -487,7 +559,7 @@ alignment = 1
 
 [node name="SubmitWord" type="Button" parent="StoriesMenu/WordEntryMenu" unique_id=2109705810]
 layout_mode = 2
-text = "Submit"
+text = "Random"
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1560937328]
 _spawnable_scenes = PackedStringArray("uid://ryjbketydl5q")
@@ -1385,14 +1457,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22333133, -0.05, -0.5049984
 [connection signal="pressed" from="Menu/Control/VBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="text_changed" from="Menu/Control/VBoxContainer/JoinCode" to="." method="_on_join_code_text_changed"]
 [connection signal="pressed" from="Menu/Control/VBoxContainer/Join" to="." method="_on_join_pressed"]
+[connection signal="toggled" from="Menu/Control/VBoxContainer/NorayToggleContainer/NorayToggle" to="." method="_on_noray_toggle_toggled"]
 [connection signal="pressed" from="PauseMenu/VSplitContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="item_selected" from="PauseMenu/VSplitContainer/SkinColour" to="." method="_on_skin_colour_item_selected"]
 [connection signal="item_selected" from="PauseMenu/VSplitContainer/Hat" to="." method="_on_hat_item_selected"]
-[connection signal="pressed" from="PauseMenu/HBoxContainer/copy_oid" to="." method="_on_copy_oid_pressed"]
+[connection signal="pressed" from="PauseMenu/VSplitContainer/HostOIDBox/copy_oid" to="." method="_on_copy_oid_pressed"]
 [connection signal="pressed" from="StoriesMenu/WaitingMenu/TellStory" to="." method="_on_tell_story_pressed"]
 [connection signal="pressed" from="StoriesMenu/WaitingMenu/TellStory" to="StorytellingManager" method="_on_tell_story_pressed"]
 [connection signal="pressed" from="StoriesMenu/WaitingMenu/Exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="StoriesMenu/WaitingMenu/Exit" to="StorytellingManager" method="_on_exit_pressed"]
+[connection signal="text_changed" from="StoriesMenu/WordEntryMenu/WordEntry" to="StorytellingManager" method="_on_word_entry_text_changed"]
 [connection signal="pressed" from="StoriesMenu/WordEntryMenu/SubmitWord" to="." method="_on_submit_word_pressed"]
 [connection signal="pressed" from="StoriesMenu/WordEntryMenu/SubmitWord" to="StorytellingManager" method="_on_submit_word_pressed"]
 [connection signal="sit" from="Level/SittingLog" to="." method="_on_sitting_log_sit"]
