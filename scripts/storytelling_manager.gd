@@ -164,7 +164,7 @@ func _campfire_telling_story():
 @rpc("call_local", "any_peer", "reliable")
 func progress_story() -> void:
 	if story_status < len(StoryManager.chosen_story.story):
-		var current_line := StoryManager.chosen_story.story[story_status]
+		var current_line = StoryManager.chosen_story.story[story_status]
 		line.text = current_line
 		
 		story_status += 1

@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [audio]
 
+buses/default_bus_layout="uid://cjwry1jytu17g"
 general/text_to_speech=true
 driver/enable_input=true
 
@@ -94,3 +95,4 @@ Pause={
 [rendering]
 
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true

@@ -13,7 +13,7 @@ func _ready() -> void:
 	interactable.interact = _on_interact
 
 func _on_interact() -> void:
-	var player := PlayerNetwork.get_current_player()
+	var player = PlayerNetwork.get_current_player()
 		
 	if occupied_by == "":
 		_sit_down(player)

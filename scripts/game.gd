@@ -11,7 +11,7 @@ extends Node
 const PLAYER := preload("res://scenes/player.tscn")
 
 @onready var join_code: LineEdit = $Menu/Control/VBoxContainer/JoinCode
-@onready var host_oid_label: Label = $PauseMenu/VSplitContainer/HBoxContainer/host_oid
+@onready var host_oid_label: Label = $PauseMenu/VSplitContainer/HostOIDBox/host_oid
 @onready var loading_label: Label = $Menu/Control/Loading
 @onready var host_oid_box: HBoxContainer = $PauseMenu/VSplitContainer/HostOIDBox
 @onready var noray_toggle: CheckButton = $Menu/Control/VBoxContainer/NorayToggleContainer/NorayToggle
