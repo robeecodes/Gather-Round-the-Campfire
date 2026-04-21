@@ -30,7 +30,7 @@ func on_noray_connected():
 	noray_connected.emit()
  
 func host(mode: String):
-	print("Hosting...")
+	print("Hosting...",)
 	if mode == "noray":
 		var peer = ENetMultiplayerPeer.new()
 		peer.create_server(Noray.local_port)
@@ -40,6 +40,7 @@ func host(mode: String):
 		print(external_oid)
 	else:
 		var peer := ENetMultiplayerPeer.new()
+		peer.set_bind_ip(get_local_ip())
 		peer.create_server(25565)
 		multiplayer.multiplayer_peer = peer
 	
@@ -58,10 +59,18 @@ func join(mode, oid):
 			join_failed.emit()
 	else:
 		var peer := ENetMultiplayerPeer.new()
-		peer.create_client("localhost", 25565)
+		peer.create_client(get_local_ip(), 25565)
 		multiplayer.multiplayer_peer = peer
 		joined.emit()
  
+func get_local_ip() -> String:
+	var ip = ""
+	for address in IP.get_local_addresses():
+		if address.begins_with("192.168") or address.begins_with("10.") or address.begins_with("172."):
+			ip = address
+			break
+	return ip
+
 func handle_nat_connection(address,port):
 	err = await connect_to_server(address, port)
  
