@@ -15,6 +15,7 @@ const PLAYER := preload("res://scenes/player.tscn")
 @onready var loading_label: Label = $Menu/Control/Loading
 @onready var host_oid_box: HBoxContainer = $PauseMenu/VSplitContainer/HostOIDBox
 @onready var noray_toggle: CheckButton = $Menu/Control/VBoxContainer/NorayToggleContainer/NorayToggle
+@onready var ip_label: Label = $Menu/Control/IPLabel
 
 var mode := "LAN"
 
@@ -24,6 +25,8 @@ func _ready() -> void:
 	Multiplayer.hosted.connect(_on_host_connected)
 	Multiplayer.joined.connect(_on_client_connected)
 	Multiplayer.join_failed.connect(_on_client_connect_failed)
+	
+	#ip_label.text = Multiplayer.get_local_ip()
 		
 	$MultiplayerSpawner.spawn_function = add_player
 

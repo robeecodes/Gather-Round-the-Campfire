@@ -5,7 +5,7 @@ signal hosted
 signal joined
 signal join_failed
  
-const NORAY_ADDRESS = "tomfol.io"
+const NORAY_ADDRESS = "0.0.0.0"
 const NORAY_PORT = 8890
  
 var is_host = false
@@ -65,6 +65,7 @@ func join(mode, oid):
  
 func get_local_ip() -> String:
 	var ip = ""
+	
 	for address in IP.get_local_addresses():
 		if address.begins_with("192.168") or address.begins_with("10.") or address.begins_with("172."):
 			ip = address
@@ -96,11 +97,13 @@ func connect_to_server(address,port):
 		udp.close()
  
 		if err != OK:
-			if err != ERR_BUSY:
-				print("Handshake failed")
+			if err == ERR_BUSY:
+				print("Handshake to %s:%s succeeded partially, attempting connection anyway" % [address, port])
+			else:
+				print("Handshake to %s:%s failed: %s" % [address, port, error_string(err)])
 				return err
 		else:
-			print("Handshake success")
+			print("Handshake to %s:%s succeeded" % [address, port])
  
 		var peer = ENetMultiplayerPeer.new()
 		err = peer.create_client(address,port, 0, 0, 0, Noray.local_port)
