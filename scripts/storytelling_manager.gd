@@ -33,7 +33,6 @@ func _ready() -> void:
 	all_seated_for_story.connect(_when_story_ready.rpc)
 	ready_to_tell_story.connect(_campfire_telling_story.rpc)
 	all_completed_story.connect(_on_all_completed_story.rpc)
-	#DisplayServer.tts_speak("current_linehi", voice_id)
 
 func _on_sitting_log_sit() -> void:
 	_when_sat_on_log()
@@ -125,7 +124,6 @@ func _tell_story():
 	word_entry_menu.hide()
 	
 	player.player_info.adding_words = false
-	#_sync_player_adding_words.rpc(player, false)
 		
 	if PlayerNetwork.players.values().all(func(p): return !p.player_info.adding_words):
 		ready_to_tell_story.emit()
@@ -159,10 +157,26 @@ func _campfire_telling_story():
 	StoryManager.chosen_story.words = StoryManager.words
 	StoryManager.update_story()
 	
+	var player = PlayerNetwork.get_current_player()
+	player.player_info.listening_to_story = true
+	
+	rpc("_sync_player_listening_state", int(player.name), true)
+	
 	progress_story.rpc()
-		
+
+@rpc("any_peer", "call_local")
+func _sync_player_listening_state(id: int, state: bool):
+	var player = PlayerNetwork.get_player_by_name(str(id))
+	
+	if player:
+		player.player_info.listening_to_story = state
+	
+
 @rpc("call_local", "any_peer", "reliable")
 func progress_story() -> void:
+	if !StoryManager.chosen_story.story:
+		return
+		
 	if story_status < len(StoryManager.chosen_story.story):
 		var current_line = StoryManager.chosen_story.story[story_status]
 		line.text = current_line
@@ -175,6 +189,16 @@ func progress_story() -> void:
 	else:
 		line.text = ""
 		story_status = 0
+		
+		var player = PlayerNetwork.get_current_player()
+		player.player_info.listening_to_story = false
+		
+		rpc("_sync_player_listening_state", int(player.name), false)
+		
+		#print("---")
+		#
+		#for p in PlayerNetwork.players.values():
+			#print(p.player_info)
 		
 		if PlayerNetwork.players.values().all(func(p): return !p.player_info.listening_to_story):
 			all_completed_story.emit()

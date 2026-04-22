@@ -14,7 +14,6 @@ func _ready() -> void:
 	
 	# we only want to initalize the mic for the peer using it
 	if (is_multiplayer_authority()):
-		print("HI")
 		input.stream = AudioStreamMicrophone.new()
 		input.play()
 		idx = AudioServer.get_bus_index("Record")
@@ -26,7 +25,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if (not is_multiplayer_authority()): 
-		print("NONONO")
 		return
 	if (effect.can_get_buffer(512) && playback.can_push_buffer(512)):
 		send_data.rpc(effect.get_buffer(512))

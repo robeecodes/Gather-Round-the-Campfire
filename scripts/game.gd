@@ -15,7 +15,6 @@ const PLAYER := preload("res://scenes/player.tscn")
 @onready var loading_label: Label = $Menu/Control/Loading
 @onready var host_oid_box: HBoxContainer = $PauseMenu/VSplitContainer/HostOIDBox
 @onready var noray_toggle: CheckButton = $Menu/Control/VBoxContainer/NorayToggleContainer/NorayToggle
-@onready var ip_label: Label = $Menu/Control/IPLabel
 
 var mode := "LAN"
 

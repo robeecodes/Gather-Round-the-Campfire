@@ -5,8 +5,10 @@ signal hosted
 signal joined
 signal join_failed
  
-const NORAY_ADDRESS = "0.0.0.0"
+const NORAY_ADDRESS = "tomfol.io"
 const NORAY_PORT = 8890
+
+const LOCAL_HOST_IP = "0.0.0.0" #Replace this with the actual IP
  
 var is_host = false
 var external_oid := ""
@@ -40,7 +42,7 @@ func host(mode: String):
 		print(external_oid)
 	else:
 		var peer := ENetMultiplayerPeer.new()
-		peer.set_bind_ip(get_local_ip())
+		peer.set_bind_ip(LOCAL_HOST_IP)
 		peer.create_server(25565)
 		multiplayer.multiplayer_peer = peer
 	
@@ -59,7 +61,7 @@ func join(mode, oid):
 			join_failed.emit()
 	else:
 		var peer := ENetMultiplayerPeer.new()
-		peer.create_client(get_local_ip(), 25565)
+		peer.create_client(LOCAL_HOST_IP, 25565)
 		multiplayer.multiplayer_peer = peer
 		joined.emit()
  
