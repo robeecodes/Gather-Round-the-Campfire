@@ -7,9 +7,9 @@ func get_current_player() -> Player:
 	
 	return get_player_by_name(str(id))
 
-func get_player_by_name(name: String) -> Player:
-	if players.has(name):
-		return players[name]
+func get_player_by_name(p_name: String) -> Player:
+	if players.has(p_name):
+		return players[p_name]
 	
 	return null
 

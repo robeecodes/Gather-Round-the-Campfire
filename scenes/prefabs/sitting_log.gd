@@ -3,7 +3,7 @@ extends Node3D
 
 @onready var interactable: Area3D = $Interactable
 @onready var sit_marker: Marker3D = $SitMarker
-@onready var collision_shape_3d: CollisionShape3D = $InteractingComponent/InteractRange/CollisionShape3D
+#@onready var collision_shape_3d: CollisionShape3D = $InteractingComponent/InteractRange/CollisionShape3D
 
 @export var occupied_by: String = ""
 
@@ -37,5 +37,5 @@ func stand_up(player):
 	interactable.is_interactable = true
 
 @rpc("any_peer", "call_local")
-func _set_occupied(name: String):
-	occupied_by = name
+func _set_occupied(p_name: String):
+	occupied_by = p_name

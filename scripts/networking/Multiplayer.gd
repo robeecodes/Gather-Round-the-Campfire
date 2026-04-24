@@ -1,5 +1,7 @@
 extends Node
- 
+
+### Noray connection implementation based on Salodo (2025) - see 'Code References' in the README
+### LAN connection implementation based on curtjs (2025) - see 'Code References' in the README
 signal noray_connected
 signal hosted
 signal joined
@@ -7,8 +9,6 @@ signal join_failed
  
 const NORAY_ADDRESS = "tomfol.io"
 const NORAY_PORT = 8890
-
-const LOCAL_HOST_IP = "0.0.0.0" #Replace this with the actual IP
  
 var is_host = false
 var external_oid := ""
@@ -31,9 +31,13 @@ func on_noray_connected():
  
 	noray_connected.emit()
  
-func host(mode: String):
+func host(mode: String, IP: String):
 	print("Hosting...",)
 	if mode == "noray":
+		config_noray()
+		
+		await noray_connected
+		
 		var peer = ENetMultiplayerPeer.new()
 		peer.create_server(Noray.local_port)
 		multiplayer.multiplayer_peer = peer
@@ -42,7 +46,7 @@ func host(mode: String):
 		print(external_oid)
 	else:
 		var peer := ENetMultiplayerPeer.new()
-		peer.set_bind_ip(LOCAL_HOST_IP)
+		peer.set_bind_ip(IP)
 		peer.create_server(25565)
 		multiplayer.multiplayer_peer = peer
 	
@@ -52,6 +56,10 @@ func host(mode: String):
  
 func join(mode, oid):
 	if mode == "noray":
+		config_noray()
+		
+		await noray_connected
+		
 		Noray.connect_nat(oid)
 		external_oid = oid
 	 
@@ -61,7 +69,7 @@ func join(mode, oid):
 			join_failed.emit()
 	else:
 		var peer := ENetMultiplayerPeer.new()
-		peer.create_client(LOCAL_HOST_IP, 25565)
+		peer.create_client(oid, 25565)
 		multiplayer.multiplayer_peer = peer
 		joined.emit()
  

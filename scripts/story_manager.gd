@@ -5,7 +5,6 @@ var chosen_story_index: int = -1
 var words: Dictionary = {}
 
 signal story_chosen
-signal story_updated
 
 var stories := [
 	preload("res://scripts/stories/story_one.gd"),

@@ -1,5 +1,7 @@
 extends Node3D
 
+## Interaction code based on Queble (2024) - see 'Code References' in the README
+
 @onready var interact_label: Label = $InteractLabel
 
 var current_interactions := []

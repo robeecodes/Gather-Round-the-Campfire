@@ -60,10 +60,10 @@ func _on_exit_pressed() -> void:
 	stories_menu.hide()
 	waiting_menu.show()
 	
-	for log in logs:
-		if log.occupied_by == player.name:
+	for l in logs:
+		if l.occupied_by == player.name:
 			player.player_info.is_sitting = false
-			log.stand_up(player)
+			l.stand_up(player)
 			break
 	
 	_leave_log.rpc()
@@ -162,9 +162,9 @@ func _campfire_telling_story():
 	
 	rpc("_sync_player_listening_state", int(player.name), true)
 	
-	progress_story.rpc()
+	progress_story()
 
-@rpc("any_peer", "call_local")
+@rpc("any_peer", "call_local", "reliable")
 func _sync_player_listening_state(id: int, state: bool):
 	var player = PlayerNetwork.get_player_by_name(str(id))
 	
@@ -172,9 +172,17 @@ func _sync_player_listening_state(id: int, state: bool):
 		player.player_info.listening_to_story = state
 	
 
+func _unhandled_input(event: InputEvent) -> void:
+	if !telling_story:
+		return
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				progress_story()
+
 @rpc("call_local", "any_peer", "reliable")
 func progress_story() -> void:
-	if !StoryManager.chosen_story.story:
+	if !StoryManager.chosen_story:
 		return
 		
 	if story_status < len(StoryManager.chosen_story.story):
@@ -184,21 +192,18 @@ func progress_story() -> void:
 		story_status += 1
 		
 		DisplayServer.tts_speak(current_line, voice_id)
-		DisplayServer.tts_set_utterance_callback(DisplayServer.TTS_UTTERANCE_ENDED, func(_id: int): progress_story.rpc())
+		DisplayServer.tts_set_utterance_callback(DisplayServer.TTS_UTTERANCE_ENDED, func(_id: int): progress_story())
 
 	else:
 		line.text = ""
 		story_status = 0
 		
+		telling_story = false
+		
 		var player = PlayerNetwork.get_current_player()
 		player.player_info.listening_to_story = false
 		
 		rpc("_sync_player_listening_state", int(player.name), false)
-		
-		#print("---")
-		#
-		#for p in PlayerNetwork.players.values():
-			#print(p.player_info)
 		
 		if PlayerNetwork.players.values().all(func(p): return !p.player_info.listening_to_story):
 			all_completed_story.emit()

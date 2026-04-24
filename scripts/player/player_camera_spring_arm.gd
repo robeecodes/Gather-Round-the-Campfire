@@ -1,5 +1,7 @@
 extends Node3D
 
+## Third person camera code based on Octodemy (2024) - See 'Code References' in README
+
 @export var mouse_sensitivity: float = 0.005
 
 @export_range(-90.0, 0.0, 0.1, "radians_as_degrees") var min_vertical_angle: float = -PI/2

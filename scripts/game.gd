@@ -5,41 +5,41 @@ extends Node
 
 # Customisation options
 @onready var pause_menu: CanvasLayer = $PauseMenu
-@onready var skin_colour_option: OptionButton = $PauseMenu/VSplitContainer/SkinColour
-@onready var hat_option: OptionButton = $PauseMenu/VSplitContainer/Hat
+@onready var skin_colour_option: OptionButton = $PauseMenu/Control/VSplitContainer/SkinColour
+@onready var hat_option: OptionButton = $PauseMenu/Control/VSplitContainer/Hat
 
 const PLAYER := preload("res://scenes/player.tscn")
 
 @onready var join_code: LineEdit = $Menu/Control/VBoxContainer/JoinCode
-@onready var host_oid_label: Label = $PauseMenu/VSplitContainer/HostOIDBox/host_oid
+@onready var host_oid_label: Label = $PauseMenu/Control/VSplitContainer/HostOIDBox/host_oid
 @onready var loading_label: Label = $Menu/Control/Loading
-@onready var host_oid_box: HBoxContainer = $PauseMenu/VSplitContainer/HostOIDBox
+@onready var host_oid_box: HBoxContainer = $PauseMenu/Control/VSplitContainer/HostOIDBox
 @onready var noray_toggle: CheckButton = $Menu/Control/VBoxContainer/NorayToggleContainer/NorayToggle
 
 var mode := "LAN"
 
 func _ready() -> void:
-	# Connect to noray in case noray is activated
-	Multiplayer.config_noray()
+
 	Multiplayer.hosted.connect(_on_host_connected)
 	Multiplayer.joined.connect(_on_client_connected)
 	Multiplayer.join_failed.connect(_on_client_connect_failed)
-	
-	#ip_label.text = Multiplayer.get_local_ip()
-		
+			
 	$MultiplayerSpawner.spawn_function = add_player
 
 func _on_noray_toggle_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		mode = "noray"
-		join_code.show()
+		join_code.placeholder_text = "Enter Join Code"
 	else:
 		mode = "LAN"
-		join_code.hide()
+		join_code.placeholder_text = "Enter Host IP"
 
 func _on_host_pressed() -> void:
+	if mode == "LAN" && join_code.text == "":
+		join_code.placeholder_text = "Must Enter Host IP"
+		return
 	noray_toggle.disabled = true
-	Multiplayer.host(mode)
+	Multiplayer.host(mode, join_code.text)
 
 func _on_host_connected() -> void:
 	if mode == "noray":
@@ -58,6 +58,9 @@ func _on_host_connected() -> void:
 	menu.hide()
 
 func _on_join_pressed() -> void:
+	if mode == "LAN" && join_code.text == "":
+		join_code.placeholder_text = "Must Enter Host IP"
+		return
 	noray_toggle.disabled = true
 	loading_label.show()
 	Multiplayer.join(mode, join_code.text)
@@ -94,6 +97,11 @@ func _input(event: InputEvent) -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		pause_menu.show()
 		get_tree().paused = true
+	if event.is_action_pressed("Release_Mouse"):
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _on_resume_pressed() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -102,7 +110,7 @@ func _on_resume_pressed() -> void:
 	get_tree().paused = false
 
 # Update Skin Colour
-func _on_skin_colour_item_selected(index: int) -> void:
+func _on_skin_colour_item_selected(_index: int) -> void:
 	var player = PlayerNetwork.get_current_player()
 			
 	var skin := skin_colour_option.get_selected_id()
@@ -121,7 +129,7 @@ func sync_player_skin(id: int, skin: int):
 		player.set_player_skin(skin)
 
 # Update Hat
-func _on_hat_item_selected(index: int) -> void:
+func _on_hat_item_selected(_index: int) -> void:
 	var player = PlayerNetwork.get_current_player()
 	
 	var hat := hat_option.get_selected_id()

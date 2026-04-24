@@ -324,11 +324,6 @@ autoplay = true
 
 [node name="Menu" type="CanvasLayer" parent="." unique_id=181353599]
 
-[node name="MenuBg" type="Sprite2D" parent="Menu" unique_id=172035331]
-position = Vector2(579, 316)
-scale = Vector2(0.67233795, 0.67233795)
-texture = ExtResource("12_kvuet")
-
 [node name="Control" type="Control" parent="Menu" unique_id=452143593]
 layout_mode = 3
 anchors_preset = 15
@@ -337,6 +332,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("13_trtic")
+
+[node name="TextureRect" type="TextureRect" parent="Menu/Control" unique_id=912016455]
+layout_mode = 0
+offset_right = 1147.0
+offset_bottom = 648.0
+texture = ExtResource("12_kvuet")
+expand_mode = 5
+stretch_mode = 3
 
 [node name="ColorRect" type="ColorRect" parent="Menu/Control" unique_id=1045265446]
 layout_mode = 1
@@ -400,16 +403,15 @@ offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Host" type="Button" parent="Menu/Control/VBoxContainer" unique_id=157848312]
-layout_mode = 2
-text = "Host"
-
 [node name="JoinCode" type="LineEdit" parent="Menu/Control/VBoxContainer" unique_id=619216140]
-visible = false
 layout_mode = 2
 theme_override_fonts/font = SubResource("SystemFont_sgl2t")
 theme_override_font_sizes/font_size = 26
-placeholder_text = "Enter Join Code"
+placeholder_text = "Enter Host IP"
+
+[node name="Host" type="Button" parent="Menu/Control/VBoxContainer" unique_id=157848312]
+layout_mode = 2
+text = "Host"
 
 [node name="Join" type="Button" parent="Menu/Control/VBoxContainer" unique_id=1894358825]
 layout_mode = 2
@@ -431,7 +433,16 @@ text = "Enable Noray (Experimental)"
 visible = false
 script = ExtResource("8_sgl2t")
 
-[node name="ColorRect" type="ColorRect" parent="PauseMenu" unique_id=175514433]
+[node name="Control" type="Control" parent="PauseMenu" unique_id=678306065]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu/Control" unique_id=175514433]
+layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 339.935
@@ -439,35 +450,33 @@ grow_vertical = 2
 size_flags_vertical = 3
 color = Color(0, 0, 0, 0.29411766)
 
-[node name="VSplitContainer" type="VSplitContainer" parent="PauseMenu" unique_id=1850436372]
+[node name="VSplitContainer" type="VSplitContainer" parent="PauseMenu/Control" unique_id=1850436372]
 process_mode = 2
-anchors_preset = 8
-anchor_left = 0.5
+layout_mode = 1
+anchors_preset = 4
 anchor_top = 0.5
-anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -553.0
-offset_top = -130.5
-offset_right = -277.0
-offset_bottom = 130.5
-grow_horizontal = 2
+offset_left = 14.0
+offset_top = -150.5
+offset_right = 315.0
+offset_bottom = 150.5
 grow_vertical = 2
 size_flags_horizontal = 0
 theme = ExtResource("13_trtic")
 split_offsets = PackedInt32Array(59, 89, 160, 190, 261)
 split_offset = 59
 
-[node name="Resume" type="Button" parent="PauseMenu/VSplitContainer" unique_id=1620451490]
+[node name="Resume" type="Button" parent="PauseMenu/Control/VSplitContainer" unique_id=1620451490]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 text = "Resume"
 
-[node name="CharacterColourLabel" type="Label" parent="PauseMenu/VSplitContainer" unique_id=1418060253]
+[node name="CharacterColourLabel" type="Label" parent="PauseMenu/Control/VSplitContainer" unique_id=1418060253]
 layout_mode = 2
 text = "Character Colour"
 label_settings = SubResource("LabelSettings_dinhu")
 
-[node name="SkinColour" type="OptionButton" parent="PauseMenu/VSplitContainer" unique_id=2033660278]
+[node name="SkinColour" type="OptionButton" parent="PauseMenu/Control/VSplitContainer" unique_id=2033660278]
 layout_mode = 2
 selected = 0
 item_count = 4
@@ -480,12 +489,12 @@ popup/item_2/id = 2
 popup/item_3/text = "Yellow"
 popup/item_3/id = 3
 
-[node name="HatLabel" type="Label" parent="PauseMenu/VSplitContainer" unique_id=206374873]
+[node name="HatLabel" type="Label" parent="PauseMenu/Control/VSplitContainer" unique_id=206374873]
 layout_mode = 2
 text = "Hat"
 label_settings = SubResource("LabelSettings_kvuet")
 
-[node name="Hat" type="OptionButton" parent="PauseMenu/VSplitContainer" unique_id=2125831362]
+[node name="Hat" type="OptionButton" parent="PauseMenu/Control/VSplitContainer" unique_id=2125831362]
 layout_mode = 2
 selected = 0
 item_count = 5
@@ -500,20 +509,20 @@ popup/item_3/id = 3
 popup/item_4/text = "Propellor"
 popup/item_4/id = 4
 
-[node name="HostOIDBox" type="HBoxContainer" parent="PauseMenu/VSplitContainer" unique_id=1709761700]
+[node name="HostOIDBox" type="HBoxContainer" parent="PauseMenu/Control/VSplitContainer" unique_id=1709761700]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="host_oid" type="Label" parent="PauseMenu/VSplitContainer/HostOIDBox" unique_id=1036114874]
+[node name="host_oid" type="Label" parent="PauseMenu/Control/VSplitContainer/HostOIDBox" unique_id=1036114874]
 layout_mode = 2
 theme_override_fonts/font = SubResource("SystemFont_qouja")
 theme_override_font_sizes/font_size = 18
 text = "This will contain the oid"
 
-[node name="VSeparator" type="VSeparator" parent="PauseMenu/VSplitContainer/HostOIDBox" unique_id=697552207]
+[node name="VSeparator" type="VSeparator" parent="PauseMenu/Control/VSplitContainer/HostOIDBox" unique_id=697552207]
 layout_mode = 2
 
-[node name="copy_oid" type="Button" parent="PauseMenu/VSplitContainer/HostOIDBox" unique_id=1386576119]
+[node name="copy_oid" type="Button" parent="PauseMenu/Control/VSplitContainer/HostOIDBox" unique_id=1386576119]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 18
@@ -559,9 +568,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -124.5
+offset_left = -228.5
 offset_top = -85.0
-offset_right = 124.5
+offset_right = 237.0
 offset_bottom = 85.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -572,6 +581,7 @@ theme = ExtResource("13_trtic")
 layout_mode = 2
 size_flags_vertical = 4
 theme = ExtResource("13_trtic")
+theme_override_font_sizes/font_size = 36
 alignment = 1
 
 [node name="SubmitWord" type="Button" parent="StoriesMenu/WordEntryMenu" unique_id=2109705810]
@@ -1867,14 +1877,14 @@ transform = Transform3D(-2.9802322e-08, 0, 1, 0, 1, 0, -1, 0, -2.9802322e-08, 0.
 [node name="log" parent="Level/SittingLog2/log2" index="0" unique_id=289964372]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22333133, -0.05, -0.5049984)
 
-[connection signal="pressed" from="Menu/Control/VBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="text_changed" from="Menu/Control/VBoxContainer/JoinCode" to="." method="_on_join_code_text_changed"]
+[connection signal="pressed" from="Menu/Control/VBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Menu/Control/VBoxContainer/Join" to="." method="_on_join_pressed"]
 [connection signal="toggled" from="Menu/Control/VBoxContainer/NorayToggleContainer/NorayToggle" to="." method="_on_noray_toggle_toggled"]
-[connection signal="pressed" from="PauseMenu/VSplitContainer/Resume" to="." method="_on_resume_pressed"]
-[connection signal="item_selected" from="PauseMenu/VSplitContainer/SkinColour" to="." method="_on_skin_colour_item_selected"]
-[connection signal="item_selected" from="PauseMenu/VSplitContainer/Hat" to="." method="_on_hat_item_selected"]
-[connection signal="pressed" from="PauseMenu/VSplitContainer/HostOIDBox/copy_oid" to="." method="_on_copy_oid_pressed"]
+[connection signal="pressed" from="PauseMenu/Control/VSplitContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="item_selected" from="PauseMenu/Control/VSplitContainer/SkinColour" to="." method="_on_skin_colour_item_selected"]
+[connection signal="item_selected" from="PauseMenu/Control/VSplitContainer/Hat" to="." method="_on_hat_item_selected"]
+[connection signal="pressed" from="PauseMenu/Control/VSplitContainer/HostOIDBox/copy_oid" to="." method="_on_copy_oid_pressed"]
 [connection signal="pressed" from="StoriesMenu/WaitingMenu/TellStory" to="." method="_on_tell_story_pressed"]
 [connection signal="pressed" from="StoriesMenu/WaitingMenu/TellStory" to="StorytellingManager" method="_on_tell_story_pressed"]
 [connection signal="pressed" from="StoriesMenu/WaitingMenu/Exit" to="." method="_on_exit_pressed"]

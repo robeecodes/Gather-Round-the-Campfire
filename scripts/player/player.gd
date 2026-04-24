@@ -8,7 +8,7 @@ extends CharacterBody3D
 @export var camera: Camera3D
 
 @export_category("Speed")
-@export var max_speed: float = 5.0
+@export var max_speed: float = 2.5
 @export var acceleration: float = 25.0
 
 enum Skin_Colour {BLUE, GREEN, RED, YELLOW}
@@ -63,7 +63,7 @@ func _process(_delta):
 	var touching_areas = foot_a.get_overlapping_areas() + foot_b.get_overlapping_areas()
 	var is_touching = foot_a.get_overlapping_areas().size() > 0 or foot_b.get_overlapping_areas().size() > 0
 	
-	if is_touching and not feet_touching_ground:
+	if is_touching and not feet_touching_ground and is_on_floor():
 		play_footstep_sound(_get_surface_type(touching_areas))
 		feet_touching_ground = true
 	elif not is_touching:
@@ -79,8 +79,8 @@ func _get_surface_type(areas: Array) -> String:
 func play_footstep_sound(surface_type: String) -> void:
 	var sounds: Array[AudioStreamMP3] = []
 	
-	if surface_type == "grass":
-		sounds = footstep_grass_sounds
+	#if surface_type == "grass":
+	sounds = footstep_grass_sounds
 	
 	if sounds.is_empty():
 		return
@@ -89,6 +89,8 @@ func play_footstep_sound(surface_type: String) -> void:
 	footstep_player.stream = random_sound
 	footstep_player.volume_db = -12
 	footstep_player.play()
+
+## Character controller movement support based on Gwizz (2023) - see 'Code References' in README
 
 func _physics_process(delta: float) -> void:	
 	if !is_multiplayer_authority():
@@ -129,6 +131,7 @@ func _physics_process(delta: float) -> void:
 		velocity = velocity.slide(collision.get_normal())
 
 func sit() -> void:
+	animation_player.play("Idle")
 	set_physics_process(false)
 	player_info.is_sitting = true
 
@@ -137,6 +140,7 @@ func stand() -> void:
 
 ## CUSTOMISATION FUNCTIONS
 # SKIN
+## Code to set skin and mesh texture based on crizmo (2025) - See 'Code References' in README
 @rpc("any_peer", "reliable")
 func set_player_skin(skin_id: int) -> void:
 	var texture = skin_textures[skin_id]
