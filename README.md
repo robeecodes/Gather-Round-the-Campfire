@@ -100,3 +100,7 @@ SoundReality (2025) *Fire Crackling Sound. Pixabay* [download] [Accessed 17 Apri
 
 - Salodo (2025). Godot multiplayer in 3 minutes. *YouTube* [video]. 08 November. Available from: https://www.youtube.com/watch?v=vcL9e1EzbnE [Accessed 08 April 2026].
   - Used in Multiplayer.gd
+
+## Library References
+
+foxssake (2023) netfox (Version 1.35.3) [computer program]. Available from: https://github.com/foxssake/netfox [Accessed 24 February 2026].
