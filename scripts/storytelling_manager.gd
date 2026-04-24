@@ -178,6 +178,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
+				DisplayServer.tts_stop()
 				progress_story()
 
 @rpc("call_local", "any_peer", "reliable")
