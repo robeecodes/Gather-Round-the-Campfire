@@ -16,17 +16,17 @@ Instructions for Linux can be found here: https://www.ionos.co.uk/digitalguide/h
 
 Once in-game, you can activate your microphone to chat with the other player, by clicking 'toggle mic' in the top right.
 
-![image-20260424140715938](/home/robee/Documents/Projects/Gather-Round-the-Campfire/readme_images/image-20260424140715938.png)
+![image-20260424140715938](./readme_images/image-20260424140715938.png)
 
 You can customise your character by pressing esc to open the pause menu.
 
-![image-20260424140810891](/home/robee/Documents/Projects/Gather-Round-the-Campfire/readme_images/image-20260424140810891.png)
+![image-20260424140810891](./readme_images/image-20260424140810891.png)
 
 You can run over to the campfire, take a seat on the logs and start being prompted for words. You can either type a word based on the prompted type, or click random. 
 
-![image-20260424140841219](/home/robee/Documents/Projects/Gather-Round-the-Campfire/readme_images/image-20260424140841219.png)
+![image-20260424140841219](./readme_images/image-20260424140841219.png)
 
-![image-20260424140853242](/home/robee/.var/app/io.typora.Typora/config/Typora/typora-user-images/image-20260424140853242.png)
+![image-20260424140853242](./readme_images/image-20260424140853242.png)
 
 Once both players have entered their words, you can listen to the story you've created together!
 
@@ -42,11 +42,21 @@ Show Mouse: Alt
 
 Interact: E
 
+## Running the Project
+
+To run the project, first clone it by running
+
+```git clone https://github.com/robeecodes/Gather-Round-the-Campfire.git```
+
+The project was built in Godot 4.6.1, so it is recommended to run it using Godot 4.6.x. (Linietsky and Manzur, 2014)
+
 ## References
 
 IONOS (2023) How to get your Linux IP address in different ways. *Data Blog* [blog]. 23 January. Available from: https://www.ionos.co.uk/digitalguide/hosting/technical-matters/get-linux-ip-address/#c468569 [Accessed 22 April 2026].
 
 Microsoft (no date) *Essential Network Settings and Tasks in Windows*. Available from: https://support.microsoft.com/en-gb/windows/essential-network-settings-and-tasks-in-windows-f21a9bbc-c582-55cd-35e0-73431160a1b9 [Accessed 22 April 2026].
+
+Linietsky, J. and Manzur, A. (2014) *Godot Engine* (Version 4.6) [computer program]. Available from: https://godotengine.org/ [Accessed 24 February 2026]
 
 Stern, L. and Price, R. (1958) *Mad Libs*. Available from: https://madlibs.com/ [Accessed 24 February 2026].
 
