@@ -6,7 +6,7 @@ To get started, download the project from the [releases](https://github.com/robe
 
 This project is designed to run on two devices at once.
 
-![image-20260424140024038](/home/robee/.var/app/io.typora.Typora/config/Typora/typora-user-images/image-20260424140024038.png)
+![image-20260424140024038](/home/robee/Documents/Projects/Gather-Round-the-Campfire/readme_images/image-20260424140024038.png)
 
 When you see this screen, both the person hosting and joining need to enter the host's IPv4 address, then press "host" or "join" respectively.
 
@@ -16,15 +16,15 @@ Instructions for Linux can be found here: https://www.ionos.co.uk/digitalguide/h
 
 Once in-game, you can activate your microphone to chat with the other player, by clicking 'toggle mic' in the top right.
 
-![image-20260424140715938](/home/robee/.var/app/io.typora.Typora/config/Typora/typora-user-images/image-20260424140715938.png)
+![image-20260424140715938](/home/robee/Documents/Projects/Gather-Round-the-Campfire/readme_images/image-20260424140715938.png)
 
 You can customise your character by pressing esc to open the pause menu.
 
-![image-20260424140810891](/home/robee/.var/app/io.typora.Typora/config/Typora/typora-user-images/image-20260424140810891.png)
+![image-20260424140810891](/home/robee/Documents/Projects/Gather-Round-the-Campfire/readme_images/image-20260424140810891.png)
 
 You can run over to the campfire, take a seat on the logs and start being prompted for words. You can either type a word based on the prompted type, or click random. 
 
-![image-20260424140841219](/home/robee/.var/app/io.typora.Typora/config/Typora/typora-user-images/image-20260424140841219.png)
+![image-20260424140841219](/home/robee/Documents/Projects/Gather-Round-the-Campfire/readme_images/image-20260424140841219.png)
 
 ![image-20260424140853242](/home/robee/.var/app/io.typora.Typora/config/Typora/typora-user-images/image-20260424140853242.png)
 
