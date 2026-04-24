@@ -6,7 +6,7 @@ To get started, download the latest version of the project from the [releases](h
 
 This project is designed to run on two devices at once.
 
-![image-20260424140024038](/home/robee/Documents/Projects/Gather-Round-the-Campfire/readme_images/image-20260424140024038.png)
+![image-20260424140024038](./readme_images/image-20260424140024038.png)
 
 When you see this screen, both the person hosting and joining need to enter the host's IPv4 address, then press "host" or "join" respectively.
 
