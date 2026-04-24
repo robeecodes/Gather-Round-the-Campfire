@@ -2,11 +2,51 @@
 
 _Gather Round the Campfire_ is a multiplayer game prototype inspired by Scouting and Mad Libs  (Stern and Price, 1958).
 
-To get started, download the project from the releases section. There is a version for Windows and a version for Linux.
+To get started, download the project from the [releases](https://github.com/robeecodes/Gather-Round-the-Campfire/releases/tag/v0.1.0-alpha) section. There is a version for Windows and a version for Linux. Unzip the folder and run the executable inside.
 
+This project is designed to run on two devices at once.
 
+![image-20260424140024038](/home/robee/.var/app/io.typora.Typora/config/Typora/typora-user-images/image-20260424140024038.png)
+
+When you see this screen, both the person hosting and joining need to enter the host's IPv4 address, then press "host" or "join" respectively.
+
+Instructions to find this on Windows can be found here: https://support.microsoft.com/en-gb/windows/essential-network-settings-and-tasks-in-windows-f21a9bbc-c582-55cd-35e0-73431160a1b9 (Microsoft)
+
+Instructions for Linux can be found here: https://www.ionos.co.uk/digitalguide/hosting/technical-matters/get-linux-ip-address/#c468569 (IONOS, 2023)
+
+Once in-game, you can activate your microphone to chat with the other player, by clicking 'toggle mic' in the top right.
+
+![image-20260424140715938](/home/robee/.var/app/io.typora.Typora/config/Typora/typora-user-images/image-20260424140715938.png)
+
+You can customise your character by pressing esc to open the pause menu.
+
+![image-20260424140810891](/home/robee/.var/app/io.typora.Typora/config/Typora/typora-user-images/image-20260424140810891.png)
+
+You can run over to the campfire, take a seat on the logs and start being prompted for words. You can either type a word based on the prompted type, or click random. 
+
+![image-20260424140841219](/home/robee/.var/app/io.typora.Typora/config/Typora/typora-user-images/image-20260424140841219.png)
+
+![image-20260424140853242](/home/robee/.var/app/io.typora.Typora/config/Typora/typora-user-images/image-20260424140853242.png)
+
+Once both players have entered their words, you can listen to the story you've created together!
+
+## Controls
+
+Movement: WASD
+
+Jump: Spacebar
+
+Pause: Esc
+
+Show Mouse: Alt
+
+Interact: E
 
 ## References
+
+IONOS (2023) How to get your Linux IP address in different ways. *Data Blog* [blog]. 23 January. Available from: https://www.ionos.co.uk/digitalguide/hosting/technical-matters/get-linux-ip-address/#c468569 [Accessed 22 April 2026].
+
+Microsoft (no date) *Essential Network Settings and Tasks in Windows*. Available from: https://support.microsoft.com/en-gb/windows/essential-network-settings-and-tasks-in-windows-f21a9bbc-c582-55cd-35e0-73431160a1b9 [Accessed 22 April 2026].
 
 Stern, L. and Price, R. (1958) *Mad Libs*. Available from: https://madlibs.com/ [Accessed 24 February 2026].
 
