@@ -2,7 +2,7 @@
 
 _Gather Round the Campfire_ is a multiplayer game prototype inspired by Scouting and Mad Libs  (Stern and Price, 1958).
 
-To get started, download the project from the [releases](https://github.com/robeecodes/Gather-Round-the-Campfire/releases/tag/v0.1.0-alpha) section. There is a version for Windows and a version for Linux. Unzip the folder and run the executable inside.
+To get started, download the latest version of the project from the [releases](https://github.com/robeecodes/Gather-Round-the-Campfire/releases) section. There is a version for Windows and a version for Linux. Unzip the folder and run the executable inside.
 
 This project is designed to run on two devices at once.
 
@@ -54,9 +54,9 @@ The project was built in Godot 4.6.1, so it is recommended to run it using Godot
 
 IONOS (2023) How to get your Linux IP address in different ways. *Data Blog* [blog]. 23 January. Available from: https://www.ionos.co.uk/digitalguide/hosting/technical-matters/get-linux-ip-address/#c468569 [Accessed 22 April 2026].
 
-Microsoft (no date) *Essential Network Settings and Tasks in Windows*. Available from: https://support.microsoft.com/en-gb/windows/essential-network-settings-and-tasks-in-windows-f21a9bbc-c582-55cd-35e0-73431160a1b9 [Accessed 22 April 2026].
+Linietsky, J. and Manzur, A. (2014) *Godot Engine* (Version 4.6) [computer program]. Available from: https://godotengine.org/ [Accessed 24 February 2026].
 
-Linietsky, J. and Manzur, A. (2014) *Godot Engine* (Version 4.6) [computer program]. Available from: https://godotengine.org/ [Accessed 24 February 2026]
+Microsoft (no date) *Essential Network Settings and Tasks in Windows*. Available from: https://support.microsoft.com/en-gb/windows/essential-network-settings-and-tasks-in-windows-f21a9bbc-c582-55cd-35e0-73431160a1b9 [Accessed 22 April 2026].
 
 Stern, L. and Price, R. (1958) *Mad Libs*. Available from: https://madlibs.com/ [Accessed 24 February 2026].
 
